@@ -9,6 +9,7 @@ import java.util.function.Consumer;
  * demand of a user
  * @param <R>
  */
+
 public class RalphsList<R> implements Iterable{
     private R r; // r must be null
     private int index = -1; // When used set back to -1;
@@ -83,18 +84,21 @@ public class RalphsList<R> implements Iterable{
     }
 
     /**
+     * Resets key elements. Used after search
+     */
+    private void reset(){
+        r =null;
+        this.index =-1;
+    }
+
+    /**
      * Resizes the array by 70%
      * @param length int - Length of the current array
      * @param arrayResize Object - Array you want resized;
      */
     private void grow(int length, Object[] arrayResize) {
-        int grothFactor = (int) (length+(.7*length));
-        c = new Object[grothFactor];
-        for (int i = 0; i < arrayResize.length; i++) {
-            if (arrayResize[i]==null)
-                break;
-            c[i] = arrayResize[i];
-        }
+        int grothFactor = (int) (length + (.7 * length));
+        c = Arrays.copyOf(arrayResize, grothFactor);
     }
 
     /**
@@ -111,21 +115,9 @@ public class RalphsList<R> implements Iterable{
      * Searches an array for an element storing the value and index if found
      * @param o R - Object being looked for
      */
-    private void search(R o){
+    private void searchRand(R o){
         if (this.elemLength % 2 == 0) { // For even List
             for (int i = 0; i < this.elemLength / 2; i++) {
-                if (arrayResize[i] == o || arrayResize[(this.elemLength - 1) - i] == o) {
-                    if (arrayResize[i]==o){
-                        r = getElemAsR(i);
-                        index = i;
-                    }else {
-                        r = getElemAsR((this.elemLength - 1) - i);
-                        index = (this.elemLength - 1) - i;
-                    }
-                    return;
-                }
-                // If it's a string
-                else if(o.getClass().equals("".getClass())){
                 if (arrayResize[i].equals(o) || arrayResize[(this.elemLength - 1) - i].equals(o)){
                     if (arrayResize[i].equals(o)){
                         r = getElemAsR(i);
@@ -137,28 +129,9 @@ public class RalphsList<R> implements Iterable{
                     return;
                 }
             }
-            }
         }
         else { // For an odd List
             for (int i = 0; i < ((this.elemLength ==1) ? elemLength : (this.elemLength /2)); i++) {
-                if ((arrayResize[i] == o || arrayResize[i+1]==o) || (arrayResize[this.elemLength -2]==o || arrayResize[(this.elemLength - 1) - i] == o)) {
-                    if (arrayResize[i]==o){
-                        r = getElemAsR(i);
-                        index = i;
-                    } else if (arrayResize[i+1]==o) {
-                        r = getElemAsR(i+1);
-                        index = i+1;
-                    } else if (arrayResize[this.elemLength-2]==o) {
-                        r = getElemAsR(this.elemLength-2);
-                        index = this.elemLength-2;
-                    }else {
-                        r = getElemAsR((this.elemLength - 1) - i);
-                        index = (this.elemLength-1)-i;
-                    }
-                    return;
-                }
-                // If it's a string
-                else if(o.getClass().equals("".getClass())){
                     if ((arrayResize[i].equals(o) || arrayResize[i+1].equals(o)) || (arrayResize[this.elemLength -2].equals(o) || arrayResize[(this.elemLength - 1) - i].equals(o))){
                         if (arrayResize[i]==o){
                             r = getElemAsR(i);
@@ -175,7 +148,6 @@ public class RalphsList<R> implements Iterable{
                         }
                         return;
                     }
-                }
             }
         }
     }
@@ -186,8 +158,13 @@ public class RalphsList<R> implements Iterable{
      * @return Boolean - True if found
      */
     public boolean contains(R o) {
-        search(o);
-        return r!=null;
+        searchRand(o);
+        if (r!=null){
+            reset();
+            return true;
+        }
+        reset();
+        return false;
     }
 
     /**
@@ -228,6 +205,18 @@ public class RalphsList<R> implements Iterable{
         return true;
     }
 
+    /**
+     * Adds all element of an array to the list
+     * @param array R - Array you want added to the list
+     * @return boolean - True if added successfully
+     *
+     */
+    public boolean addAll(R[] array){
+        for (R arrays: array){
+            add(arrays);
+        }
+        return true;
+    }
 
 
     /**
@@ -269,9 +258,10 @@ public class RalphsList<R> implements Iterable{
     public R remove(int index){
         checkValidIndex(index);
         r = getElemAsR(index);
-        for (int i=index; i<this.elemLength; i++){
-            arrayResize[i] = (index==arrayResize.length-1) ? null : arrayResize[i+1];
+       for (int i = index; i < this.elemLength - 1; i++) {
+            arrayResize[i] = arrayResize[i+1];
         }
+        arrayResize[this.elemLength - 1] = null;
         elemLength--;
         return r;
     }
@@ -282,24 +272,59 @@ public class RalphsList<R> implements Iterable{
      * @return boolean - Returns a boolean denoting if the element was found or not
      */
     public boolean remove(R o){
-        search(o);
+        searchRand(o);
         if (r!=null){
-            for (int i=this.index; i<this.elemLength; i++){
-                arrayResize[i] = (this.index==arrayResize.length-1) ? null : arrayResize[i+1];
-            }
-            this.index = -1;
-            elemLength--;
+            System.arraycopy(arrayResize, index + 1, arrayResize, index, elemLength - index - 1);
+            arrayResize[--elemLength] = null;
+            reset();
             return true;
         }else {
             return false;
         }
     }
 
-    // TODO Implement add(Obj[])
-    // TODO Implement sort()
-    // TODO Implement clear()
-    // TODO Implement indexOf()
+    /**
+     * Clears all elements from the list and resets to default size
+     */
+    public void clear(){
+        elemLength = 0;
+        c = new Object[10];
+        arrayResize = c;
+    }
+
+    /**
+     * Trims array to fit data to save space
+     */
+    public void trimToSize(){
+        arrayResize = Arrays.copyOf(arrayResize,elemLength);
+    }
+
+    /**
+     * Finds index of an element
+     * @param o R - Object being searched for
+     * @return int - Index position if found or -1 if not
+     */
+    // TODO Fix IndexOf broken
+    public int indexOf(R o){
+        for (int i = 0; i < elemLength; i++) {
+            if (arrayResize[i]==o){
+                return i;
+            }
+        }
+        return -1;
+    }
+
     // TODO Implement lastIndexOf()  return -1
+    public int lastIndexOf(R o){
+        for (int i=elemLength-1; i>=0; i--){
+            if (arrayResize[i]==o){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // TODO Implement sort()
     // TODO Implement growthFactor advanced
 
 

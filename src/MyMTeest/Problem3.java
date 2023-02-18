@@ -1,7 +1,6 @@
 package MyMTeest;
 import MyMethods.*;
 
-import java.util.*;
 import java.util.Arrays;
 
 public class Problem3 {
@@ -84,6 +83,7 @@ public class Problem3 {
         rolist.add(3);
         rolist.add(3);
         rolist.add(3);
+        rolist.trimToSize();
         System.out.printf("%1$s %2$s %1$s\n","-".repeat(16),rolist.getClass());
         System.out.println("Contains: "+rolist.contains(1));
         System.out.println("Size: "+rolist.size());
