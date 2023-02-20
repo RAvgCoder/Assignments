@@ -1,20 +1,18 @@
 package MyMethods;
 
-import TeestLogFiles.Logger;
+import TestLogFiles.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+
 public class RalphsListTest {
-    private Integer []testArray = {1,2,3,4,5,6};
-    private int bound = Math.min(999999999,9999999);
-    int vars = ThreadLocalRandom.current().nextInt(2, bound);
+    private final Integer []testArray = {1,2,3,4,5,6};
+    private final int bound = Math.min(999999999,9999999);
+    private int vars = ThreadLocalRandom.current().nextInt(2, bound);
 
      /////////////   LOGGERS START   //////////////////////
     Logger logger;
@@ -23,14 +21,12 @@ public class RalphsListTest {
 
     @Test
     public void size() {
-        logger = new Logger();
         ArrayList<Integer> AlistSize = new ArrayList<>(List.of(testArray));
         RalphsList<Integer> listSize = new RalphsList<>(testArray);
         System.out.println(vars);
         for (int i = 0; i < vars; i++) {
             listSize.add(i);
             AlistSize.add(i);
-//            logger.reading(listSize,"listSize",listSize)
         }
         Assert.assertEquals(AlistSize.size(), listSize.size());
     }
@@ -49,18 +45,17 @@ public class RalphsListTest {
 
     @Test
     public void contains() {
-        logger = new Logger();
+        logger = Logger.LoggerInstance("listContains");
         ArrayList<String> AlistContains = new ArrayList<>();
         RalphsList<String> listContains = new RalphsList<>();
         System.out.println(vars);
         for (int i = 0; i <= vars; i++) {
             listContains.add(i+"");
             AlistContains.add(i+"");
-            logger.running(listContains,"listContains",listContains.action,new double[]{listContains.start,listContains.end,listContains.timeElapsed});
-            listContains.action =false;
+            logger.running();
         }
+        logger.endLog();
         String x = String.valueOf((vars/2));
-        logger.endLog(listContains.totoalTimeSpent,listContains.count);
         Assert.assertEquals(AlistContains.contains(x), listContains.contains(x));
     }
 
@@ -120,7 +115,7 @@ public class RalphsListTest {
         }
         AlistClear.clear();
         listClear.clear();
-        Assert.assertEquals(new Integer[]{AlistClear.size()},new Integer[]{listClear.size()});
+        Assert.assertEquals(AlistClear.size(),listClear.size());
     }
 
     @Test
@@ -148,7 +143,7 @@ public class RalphsListTest {
         }
 
         Integer x = vars/2;
-        Assert.assertEquals(AlistIndexOf.indexOf(x),listIndexOf.indexOf(x,vars-1));
+        Assert.assertEquals(AlistIndexOf.indexOf(x),listIndexOf.indexOf(x));
     }
 
     @Test
@@ -173,7 +168,7 @@ public class RalphsListTest {
             AlistGet.add(i);
             listGet.add(i);
         }
-        Integer x = (int) (vars/4);
+        Integer x = (vars/4);
         Assert.assertEquals(AlistGet.get(x),listGet.get(x));
     }
 

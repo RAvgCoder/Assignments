@@ -1,5 +1,7 @@
 package MyMethods;
 
+import TestLogFiles.Logger;
+
 import java.util.*;
 
 /**
@@ -16,27 +18,11 @@ public class RalphsList<R>{
     private Object[] arrayResize = new Object[]{};   // Initializes an array
     private int elemLength =0;    // Initializes a length of array
     private Object []c;
-    private final String errorArrayOutOfBounds = "Index %d out of bounds for length %d";
 
     /////////////   LOGGERS START   //////////////////////
-    public int count =0;
-    public double totoalTimeSpent =0;
-    public double timeElapsed =0;
-    public double start;
-    public double end;
-    public boolean action = false;
-
-    /////////////   LOGGERS START     //////////////////////
-    public void start(){
-        action = true;
-        start = (System.currentTimeMillis());
-    }
-    public void stop(){
-        end = (System.currentTimeMillis());
-        timeElapsed = end - start;
-        count++;
-        totoalTimeSpent +=timeElapsed;
-    }
+//    Logger logger = Logger.LoggerInstance();
+//    logger.startTimer();
+//    logger.endTimer();
     /////////////   LOGGERS END     //////////////////////
 
     /**
@@ -104,12 +90,9 @@ public class RalphsList<R>{
     /**
      * Resizes the array by 70%
      */
-    // TODO speedTest
     private void grow() {
-        start();
         int grothFactor = (int)(arrayResize.length +(.7*arrayResize.length));
         c = Arrays.copyOf(arrayResize, grothFactor);
-        stop();
     }
 
     // TODO Implement growthFactor advanced
@@ -339,7 +322,7 @@ public class RalphsList<R>{
      * @param o R - Object being searched for
      * @return int - Index position if found or -1 if not
      */
-    public int indexOf(R o,int vars){
+    public int indexOf(R o){
         for (int i = 0; i < elemLength; i++) {
             if (arrayResize[i]==o){
                 return i;
