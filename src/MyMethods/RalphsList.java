@@ -1,5 +1,7 @@
 package MyMethods;
 
+import TestLogFiles.Logger;
+
 import java.util.*;
 
 /**
@@ -16,33 +18,12 @@ public class RalphsList<R>{
     private Object[] arrayResize = new Object[]{};   // Initializes an array
     private int elemLength =0;    // Initializes a length of array
     private Object []c;
-    private final String errorArrayOutOfBounds = "Index %d out of bounds for length %d";
 
     /////////////   LOGGERS START   //////////////////////
-    public int count =0;
-    public double totoalTimeSpent =0;
-    public double timeElapsed =0;
-    public double start;
-    public double end;
-    public boolean action = false;
-
-    /////////////   LOGGERS START     //////////////////////
-    public void start(){
-        action = true;
-        start = (System.currentTimeMillis());
-    }
-    public void stop(){
-        end = (System.currentTimeMillis());
-        timeElapsed = end - start;
-        count++;
-        totoalTimeSpent +=timeElapsed;
-    }
+//    Logger logger = Logger.LoggerInstance();
+    //        logger.startTimer();
+//        logger.endTimer();
     /////////////   LOGGERS END     //////////////////////
-
-    /**
-     * Creates a default size starting array
-     */
-    public RalphsList(){ this.arrayResize = new Object[10];}
 
     /**
      * Creates an array with your defined length
@@ -56,6 +37,11 @@ public class RalphsList<R>{
             throw new IllegalArgumentException("Illegal Capacity: "+length);
         }
     }
+
+    /**
+     * Creates a default size starting array
+     */
+    public RalphsList(){ this.arrayResize = new Object[10];}
 
     /**
      * Creates a resizable array with an array given
@@ -104,12 +90,10 @@ public class RalphsList<R>{
     /**
      * Resizes the array by 70%
      */
-    // TODO speedTest
     private void grow() {
-        start();
         int grothFactor = (int)(arrayResize.length +(.7*arrayResize.length));
         c = Arrays.copyOf(arrayResize, grothFactor);
-        stop();
+
     }
 
     // TODO Implement growthFactor advanced
@@ -154,13 +138,13 @@ public class RalphsList<R>{
         else { // For an odd List
             for (int i = 0; i < ((this.elemLength ==1) ? elemLength : (this.elemLength /2)); i++) {
                 if ((arrayResize[i].equals(o) || arrayResize[i+1].equals(o)) || (arrayResize[this.elemLength -2].equals(o) || arrayResize[(this.elemLength - 1) - i].equals(o))){
-                    if (arrayResize[i]==o){
+                    if (arrayResize[i].equals(o)){
                         r = getElemAsR(i);
                         index = i;
-                    } else if (arrayResize[i+1]==o) {
+                    } else if (arrayResize[i+1].equals(o)) {
                         r = getElemAsR(i+1);
                         index = i+1;
-                    } else if (arrayResize[this.elemLength-2]==o) {
+                    } else if (arrayResize[this.elemLength-2].equals(o)) {
                         r = getElemAsR(this.elemLength-2);
                         index = this.elemLength-2;
                     }else {
@@ -198,7 +182,6 @@ public class RalphsList<R>{
         checkSize();
 
         for (int i = elemLength; i < arrayResize.length; i++) {
-
             if (arrayResize[i] == null){
                 arrayResize[i] = o;
                 elemLength++;
@@ -220,7 +203,7 @@ public class RalphsList<R>{
 
         checkSize();
         for (int i=elemLength; i>=index; i--){  // Shifts elements to make space for insertion
-            arrayResize[elemLength] = arrayResize[index==0 ? 0 :elemLength-1];
+            arrayResize[elemLength] = arrayResize[index==0 ? 0 : elemLength-1];
         }
         arrayResize[index] = o;
         elemLength++;
@@ -339,9 +322,9 @@ public class RalphsList<R>{
      * @param o R - Object being searched for
      * @return int - Index position if found or -1 if not
      */
-    public int indexOf(R o,int vars){
+    public int indexOf(R o){
         for (int i = 0; i < elemLength; i++) {
-            if (arrayResize[i]==o){
+            if (arrayResize[i].equals(o)){
                 return i;
             }
         }
@@ -357,7 +340,7 @@ public class RalphsList<R>{
      */
     public int lastIndexOf(R o){
         for (int i=elemLength-1; i>=0; i--){
-            if (arrayResize[i]==o){
+            if (arrayResize[i].equals(o)){
                 return i;
             }
         }
