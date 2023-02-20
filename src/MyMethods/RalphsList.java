@@ -1,7 +1,6 @@
 package MyMethods;
 
 import java.util.*;
-import java.util.function.Consumer;
 
 /**
  * @author: Egbor Osebhulimen
@@ -10,14 +9,35 @@ import java.util.function.Consumer;
  * @param <R>
  */
 
-public class RalphsList<R> implements Iterable{
+//public class RalphsList<R> implements List<R>{
+public class RalphsList<R>{
     private R r; // r must be null
     private int index = -1; // When used set back to -1;
     private Object[] arrayResize = new Object[]{};   // Initializes an array
     private int elemLength =0;    // Initializes a length of array
-
     private Object []c;
     private final String errorArrayOutOfBounds = "Index %d out of bounds for length %d";
+
+    /////////////   LOGGERS START   //////////////////////
+    public int count =0;
+    public double totoalTimeSpent =0;
+    public double timeElapsed =0;
+    public double start;
+    public double end;
+    public boolean action = false;
+
+    /////////////   LOGGERS START     //////////////////////
+    public void start(){
+        action = true;
+        start = (System.currentTimeMillis());
+    }
+    public void stop(){
+        end = (System.currentTimeMillis());
+        timeElapsed = end - start;
+        count++;
+        totoalTimeSpent +=timeElapsed;
+    }
+    /////////////   LOGGERS END     //////////////////////
 
     /**
      * Creates a default size starting array
@@ -69,18 +89,8 @@ public class RalphsList<R> implements Iterable{
      * @return R - Element of type R
      */
     private R getElemAsR(int index){
-        checkValidIndex(index);
+        Objects.checkIndex(index,elemLength);
         return (R) arrayResize[index];
-    }
-
-    /**
-     * Checks Throws error when user gives index more than element length
-     * @param index Integer - Position to be placed at
-     */
-    private void checkValidIndex(int index) throws ArrayIndexOutOfBoundsException{
-        if (index>=elemLength || index<0) {
-            throw new ArrayIndexOutOfBoundsException(String.format(errorArrayOutOfBounds, index, elemLength));
-        }
     }
 
     /**
@@ -93,12 +103,22 @@ public class RalphsList<R> implements Iterable{
 
     /**
      * Resizes the array by 70%
-     * @param length int - Length of the current array
-     * @param arrayResize Object - Array you want resized;
      */
-    private void grow(int length, Object[] arrayResize) {
-        int grothFactor = (int) (length + (.7 * length));
+    // TODO speedTest
+    private void grow() {
+        start();
+        int grothFactor = (int)(arrayResize.length +(.7*arrayResize.length));
         c = Arrays.copyOf(arrayResize, grothFactor);
+        stop();
+    }
+
+    // TODO Implement growthFactor advanced
+    private int growthFactor(){
+        long start = System.nanoTime();
+        int length =0;
+
+        long end = System.nanoTime();
+        return length;
     }
 
     /**
@@ -106,7 +126,7 @@ public class RalphsList<R> implements Iterable{
      */
     private void checkSize(){
         if (elemLength+3 >= arrayResize.length){    // Increases size of array when almost full
-            grow(arrayResize.length,arrayResize);
+            grow();
             arrayResize = c;    // Points to object c the resized array
         }
     }
@@ -115,14 +135,15 @@ public class RalphsList<R> implements Iterable{
      * Searches an array for an element storing the value and index if found
      * @param o R - Object being looked for
      */
-    private void searchRand(R o){
+    private void searchRand(R o){   // Custom random search
         if (this.elemLength % 2 == 0) { // For even List
             for (int i = 0; i < this.elemLength / 2; i++) {
                 if (arrayResize[i].equals(o) || arrayResize[(this.elemLength - 1) - i].equals(o)){
                     if (arrayResize[i].equals(o)){
                         r = getElemAsR(i);
                         index = i;
-                    }else {
+                    }
+                    else {
                         r = getElemAsR((this.elemLength - 1) - i);
                         index = (this.elemLength - 1) - i;
                     }
@@ -132,22 +153,22 @@ public class RalphsList<R> implements Iterable{
         }
         else { // For an odd List
             for (int i = 0; i < ((this.elemLength ==1) ? elemLength : (this.elemLength /2)); i++) {
-                    if ((arrayResize[i].equals(o) || arrayResize[i+1].equals(o)) || (arrayResize[this.elemLength -2].equals(o) || arrayResize[(this.elemLength - 1) - i].equals(o))){
-                        if (arrayResize[i]==o){
-                            r = getElemAsR(i);
-                            index = i;
-                        } else if (arrayResize[i+1]==o) {
-                            r = getElemAsR(i+1);
-                            index = i+1;
-                        } else if (arrayResize[this.elemLength-2]==o) {
-                            r = getElemAsR(this.elemLength-2);
-                            index = this.elemLength-2;
-                        }else {
-                            r = getElemAsR((this.elemLength - 1) - i);
-                            index = (this.elemLength-1)-i;
-                        }
-                        return;
+                if ((arrayResize[i].equals(o) || arrayResize[i+1].equals(o)) || (arrayResize[this.elemLength -2].equals(o) || arrayResize[(this.elemLength - 1) - i].equals(o))){
+                    if (arrayResize[i]==o){
+                        r = getElemAsR(i);
+                        index = i;
+                    } else if (arrayResize[i+1]==o) {
+                        r = getElemAsR(i+1);
+                        index = i+1;
+                    } else if (arrayResize[this.elemLength-2]==o) {
+                        r = getElemAsR(this.elemLength-2);
+                        index = this.elemLength-2;
+                    }else {
+                        r = getElemAsR((this.elemLength - 1) - i);
+                        index = (this.elemLength-1)-i;
                     }
+                    return;
+                }
             }
         }
     }
@@ -157,6 +178,7 @@ public class RalphsList<R> implements Iterable{
      * @param o Object - Element whose presence in this list is to be tested
      * @return Boolean - True if found
      */
+
     public boolean contains(R o) {
         searchRand(o);
         if (r!=null){
@@ -194,7 +216,7 @@ public class RalphsList<R> implements Iterable{
      */
     public boolean add(int index,R o){
         // Throws error when user gives index more than element length
-        checkValidIndex(index);
+        Objects.checkIndex(index,elemLength);
 
         checkSize();
         for (int i=elemLength; i>=index; i--){  // Shifts elements to make space for insertion
@@ -206,7 +228,7 @@ public class RalphsList<R> implements Iterable{
     }
 
     /**
-     * Adds all element of an array to the list
+     * Adds all element of a given array to the array
      * @param array R - Array you want added to the list
      * @return boolean - True if added successfully
      *
@@ -214,6 +236,19 @@ public class RalphsList<R> implements Iterable{
     public boolean addAll(R[] array){
         for (R arrays: array){
             add(arrays);
+        }
+        return true;
+    }
+
+    /**
+     * Adds all element of a given List to the array
+     * @param list R - Array you want added to the list
+     * @return boolean - True if added successfully
+     *
+     */
+    public boolean addAll(List<R> list){
+        for (R lists: list){
+            add(lists);
         }
         return true;
     }
@@ -256,7 +291,7 @@ public class RalphsList<R> implements Iterable{
      * @return R - Object that was deleted
      */
     public R remove(int index){
-        checkValidIndex(index);
+        Objects.checkIndex(index,elemLength);
         r = getElemAsR(index);
        for (int i = index; i < this.elemLength - 1; i++) {
             arrayResize[i] = arrayResize[i+1];
@@ -300,12 +335,11 @@ public class RalphsList<R> implements Iterable{
     }
 
     /**
-     * Finds index of an element
+     * Finds index of the first appearance of an element
      * @param o R - Object being searched for
      * @return int - Index position if found or -1 if not
      */
-    // TODO Fix IndexOf broken
-    public int indexOf(R o){
+    public int indexOf(R o,int vars){
         for (int i = 0; i < elemLength; i++) {
             if (arrayResize[i]==o){
                 return i;
@@ -315,6 +349,12 @@ public class RalphsList<R> implements Iterable{
     }
 
     // TODO Implement lastIndexOf()  return -1
+    /**
+     * Finds the first appearance of an element
+     * from the end of the array
+     * @param o R -The object its searching for.
+     * @return int - Index where the object was found
+     */
     public int lastIndexOf(R o){
         for (int i=elemLength-1; i>=0; i--){
             if (arrayResize[i]==o){
@@ -324,84 +364,26 @@ public class RalphsList<R> implements Iterable{
         return -1;
     }
 
+
+
     // TODO Implement sort()
-    // TODO Implement growthFactor advanced
+    // TODO Implement removeIf()
+    // TODO Implement testEquals()
+    // TODO Implement stream()
+    // Replaces the element at the specified position in this list with the
+    ////     * specified element (optional operation).
+    // TODO Implement set()
+    //public boolean addAll(int index, Collection<? extends R> c) {
+    // TODO Implement addAll()
+    // TODO Implement containsAll()
+    // TODO Implement subList() Mini -list {new RalphList()}
+
 
 
 
 
 
     ///////////////////////////////////////////////////////////////
-
-    /**
-     * Returns an iterator over elements of type {@code T}.
-     *
-     * @return an Iterator.
-     */
-    @Override
-    public Iterator<R> iterator() {
-        return new ArrIterator();
-    }
-
-    /**
-     * @author Egbor Osebhulimen
-     * @date 2023-02-16
-     * @desciption Class used to create an Iterator----------
-     */
-    private class ArrIterator implements Iterator<R>{
-        private int index;
-
-        /**
-         * Returns {@code true} if the iteration has more elements.
-         * (In other words, returns {@code true} if {@link #next} would
-         * return an element rather than throwing an exception.)
-         *
-         * @return {@code true} if the iteration has more elements
-         */
-        @Override
-        public boolean hasNext() {
-            return index<elemLength;
-        }
-
-        /**
-         * Returns the next element in the iteration.
-         *
-         * @return the next element in the iteration
-         * @throws NoSuchElementException if the iteration has no more elements
-         */
-        @Override
-        public R next() {
-            return (R) arrayResize[index++];
-        }
-
-        /**
-         * Performs the given action for each remaining element until all elements
-         * have been processed or the action throws an exception.  Actions are
-         * performed in the order of iteration, if that order is specified.
-         * Exceptions thrown by the action are relayed to the caller.
-         * <p>
-         * The behavior of an iterator is unspecified if the action modifies the
-         * collection in any way (even by calling the {@link #remove remove} method
-         * or other mutator methods of {@code Iterator} subtypes),
-         * unless an overriding class has specified a concurrent modification policy.
-         * <p>
-         * Subsequent behavior of an iterator is unspecified if the action throws an
-         * exception.
-         *
-         * @param action The action to be performed for each element
-         * @throws NullPointerException if the specified action is null
-         * @implSpec <p>The default implementation behaves as if:
-         * <pre>{@code
-         *     while (hasNext())
-         *         action.accept(next());
-         * }</pre>
-         * @since 1.8
-         */
-        @Override
-        public void forEachRemaining(Consumer<? super R> action) {
-            Iterator.super.forEachRemaining(action);
-        }
-    }
 
 
 }
