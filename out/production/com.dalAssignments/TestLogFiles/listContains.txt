@@ -1,11 +1,141 @@
 ~ ~ ~ ~ ~ ~ File Info ~ ~ ~ ~ ~ ~
-Mon., Feb. 20 2023 09:56:19
+Tue., Feb. 21 2023 15:14:36
 --------------------------------
+Start: 1.677006876445E12ms
+End: 1.677006876445E12ms
+TimeSpent: 0.0ms | Iteration: 1
+--------------------------------
+
+Start: 1.677006876452E12ms
+End: 1.677006876452E12ms
+TimeSpent: 0.0ms | Iteration: 2
+--------------------------------
+
+Start: 1.677006876452E12ms
+End: 1.677006876452E12ms
+TimeSpent: 0.0ms | Iteration: 3
+--------------------------------
+
+Start: 1.677006876453E12ms
+End: 1.677006876453E12ms
+TimeSpent: 0.0ms | Iteration: 4
+--------------------------------
+
+Start: 1.677006876453E12ms
+End: 1.677006876453E12ms
+TimeSpent: 0.0ms | Iteration: 5
+--------------------------------
+
+Start: 1.677006876454E12ms
+End: 1.677006876454E12ms
+TimeSpent: 0.0ms | Iteration: 6
+--------------------------------
+
+Start: 1.677006876455E12ms
+End: 1.677006876455E12ms
+TimeSpent: 0.0ms | Iteration: 7
+--------------------------------
+
+Start: 1.677006876456E12ms
+End: 1.677006876456E12ms
+TimeSpent: 0.0ms | Iteration: 8
+--------------------------------
+
+Start: 1.677006876456E12ms
+End: 1.677006876456E12ms
+TimeSpent: 0.0ms | Iteration: 9
+--------------------------------
+
+Start: 1.677006876458E12ms
+End: 1.677006876458E12ms
+TimeSpent: 0.0ms | Iteration: 10
+--------------------------------
+
+Start: 1.67700687646E12ms
+End: 1.67700687646E12ms
+TimeSpent: 0.0ms | Iteration: 11
+--------------------------------
+
+Start: 1.677006876462E12ms
+End: 1.677006876462E12ms
+TimeSpent: 0.0ms | Iteration: 12
+--------------------------------
+
+Start: 1.677006876466E12ms
+End: 1.677006876466E12ms
+TimeSpent: 0.0ms | Iteration: 13
+--------------------------------
+
+Start: 1.677006876472E12ms
+End: 1.677006876473E12ms
+TimeSpent: 1.0ms | Iteration: 14
+--------------------------------
+
+Start: 1.677006876483E12ms
+End: 1.677006876483E12ms
+TimeSpent: 0.0ms | Iteration: 15
+--------------------------------
+
+Start: 1.677006876492E12ms
+End: 1.677006876492E12ms
+TimeSpent: 0.0ms | Iteration: 16
+--------------------------------
+
+Start: 1.677006876513E12ms
+End: 1.677006876513E12ms
+TimeSpent: 0.0ms | Iteration: 17
+--------------------------------
+
+Start: 1.67700687653E12ms
+End: 1.67700687653E12ms
+TimeSpent: 0.0ms | Iteration: 18
+--------------------------------
+
+Start: 1.677006876563E12ms
+End: 1.677006876563E12ms
+TimeSpent: 0.0ms | Iteration: 19
+--------------------------------
+
+Start: 1.677006876615E12ms
+End: 1.677006876616E12ms
+TimeSpent: 1.0ms | Iteration: 20
+--------------------------------
+
+Start: 1.677006876692E12ms
+End: 1.677006876694E12ms
+TimeSpent: 2.0ms | Iteration: 21
+--------------------------------
+
+Start: 1.677006876776E12ms
+End: 1.677006876778E12ms
+TimeSpent: 2.0ms | Iteration: 22
+--------------------------------
+
+Start: 1.677006876893E12ms
+End: 1.677006876897E12ms
+TimeSpent: 4.0ms | Iteration: 23
+--------------------------------
+
+Start: 1.677006877063E12ms
+End: 1.677006877065E12ms
+TimeSpent: 2.0ms | Iteration: 24
+--------------------------------
+
+Start: 1.677006877461E12ms
+End: 1.677006877472E12ms
+TimeSpent: 11.0ms | Iteration: 25
+--------------------------------
+
+Start: 1.677006877999E12ms
+End: 1.677006878008E12ms
+TimeSpent: 9.0ms | Iteration: 26
+--------------------------------
+
 Final File Stats
 --------------------------------
 
-TotalTime: 0.0ms
-TotalIterations: 0
-AverageTimeSpent: NaNms
+TotalTime: 32.0ms
+TotalIterations: 26
+AverageTimeSpent: 1.231ms
 --------------------------------
 
