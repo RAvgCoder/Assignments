@@ -1,10 +1,12 @@
 package TestLogFiles;
 
+import java.awt.geom.IllegalPathStateException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.IllegalFormatException;
 
 public class Logger {
     private static Logger logger = null;
@@ -23,6 +25,7 @@ public class Logger {
     private double startTime;
     private double endTime;
     private boolean onEvent = false;
+    private boolean useDefaultPath;
 
     ///////////////////////////////////////////////////////////////////////
 
@@ -37,8 +40,9 @@ public class Logger {
 
 
 //////////////////////////////////////////////////////////////////////////////
-    public void startLog(String fileName){ // Not to be used in a loop
-        this.fileName = fileName;
+    public void startLog(String fileName, boolean useDefaultPath){ // Not to be used in a loop
+        this.fileName = srcFileValidator(fileName);;
+        this.useDefaultPath = useDefaultPath;
         logWriter(onEvent,true);
         newFile = false;
     }
@@ -64,7 +68,11 @@ public class Logger {
     private void logWriter(boolean onEvent, boolean endLog){
         FileWriter fileWriter;
 
-        File fileName = new File("./src/TestLogFiles/"+ this.fileName +".txt");
+        File fileName = new File(
+                this.useDefaultPath
+                ?   "./src/TestLogFiles/"+ this.fileName +".txt"
+                :   this.fileName
+        );
         try {
             if (newFile){ //    Creates the file header while also instantiating a new file any time its called
                 fileWriter = new FileWriter(fileName, false);
@@ -109,6 +117,15 @@ public class Logger {
     }
 
     ////////////    Extra Stuff Don't touch    ///////////////
+    private String srcFileValidator(String fileName){
+        String[] fileValidator = fileName.split("/");
+        if (fileValidator.length == 1) {
+            throw  new IllegalPathStateException("Invalid path specified for "+fileName);
+        }
+
+        return fileName;
+    }
+
     private void endTimeCalculation(){
         timeElapsed = endTime - startTime;
         itrCount++;

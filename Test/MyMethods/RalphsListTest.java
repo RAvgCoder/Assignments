@@ -1,6 +1,5 @@
 package MyMethods;
 
-import TestLogFiles.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -12,12 +11,6 @@ public class RalphsListTest {
     private final Integer []testArray = {1,2,3,4,5,6};
     private final int bound = Math.min(99999999,9999999);
     private int vars = ThreadLocalRandom.current().nextInt(-23, bound);
-
-     /////////////   LOGGERS START   //////////////////////
-    Logger logger = Logger.LoggerInstance();
-
-    //////////////   LOGGERS END     //////////////////////
-
 
     @Test
     public void size() {
@@ -48,12 +41,10 @@ public class RalphsListTest {
         ArrayList<String> AlistContains = new ArrayList<>();
         RalphsList<String> listContains = new RalphsList<>();
         System.out.println(vars);
-        logger.startLog("listContains");
         for (int i = 0; i <= vars; i++) {
             listContains.add(i+"");
             AlistContains.add(i+"");
         }
-        logger.endLog();
         String x = String.valueOf((vars/2));
         Assert.assertEquals(AlistContains.contains(x), listContains.contains(x));
     }
