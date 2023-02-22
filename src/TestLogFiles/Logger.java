@@ -11,7 +11,7 @@ public class Logger {
     //  TODO document your code
     /////////////       For file writing Manipulation    ////////////
     private boolean newFile = true;
-    private String nameFile = null;
+    private String fileName = null;
 
     /////////////       For Time calculation in Logger    ////////////
     private int itrCount =0;
@@ -23,54 +23,48 @@ public class Logger {
     private double startTime;
     private double endTime;
     private boolean onEvent = false;
-    public void startTimer(){
-        onEvent = true;
-        startTime = (System.currentTimeMillis());
-    }
-    public void endTimer(){
-        endTime = (System.currentTimeMillis());
-        timeElapsed = endTime - startTime;
-        itrCount++;
-        totalTimeSpent +=timeElapsed;
-    }
+
     ///////////////////////////////////////////////////////////////////////
 
     public static Logger LoggerInstance(){
         if (logger == null){
-            System.out.println("Log Status: Failed");
-            throw new IllegalCallerException("Can not create a log without specifying a file name.\n" +
-                    "Create like this Logger.LoggerInstance(\"________\")");
-        }
-        return logger;
-    }
-    public static Logger LoggerInstance(String nameFile){
-        if (logger == null){
-            return logger = new Logger(nameFile);
+            return  logger = new Logger();
         }
         return logger;
     }
 
     private Logger() {}
-    private Logger(String nameFile) {
-        this.nameFile = nameFile;
+
+
+//////////////////////////////////////////////////////////////////////////////
+    public void startLog(String fileName){ // Not to be used in a loop
+        this.fileName = fileName;
+        logWriter(onEvent,true);
+        newFile = false;
     }
 
-    public void running(){
-        logMain(onEvent,true);
-        newFile = false;
+    public void startTimer(){
+        onEvent = true;
+        startTime = (System.currentTimeMillis());
+    }
+
+    public void endTimer(){
+        endTime = (System.currentTimeMillis());
+        endTimeCalculation();
+        logWriter(onEvent,true);
         this.onEvent = false;
     }
 
-    public void endLog(){
+    public void endLog(){ // Not to be used in a loop
         this.averageTimeSpent = String.format("%.3f",totalTimeSpent/itrCount);
-        logMain(onEvent, false);
+        logWriter(onEvent, false);
         newFile = true;
     }
 
-    private void logMain(boolean onEvent, boolean startLog){
+    private void logWriter(boolean onEvent, boolean endLog){
         FileWriter fileWriter;
 
-        File fileName = new File("./src/TestLogFiles/"+ nameFile +".txt");
+        File fileName = new File("./src/TestLogFiles/"+ this.fileName +".txt");
         try {
             if (newFile){ //    Creates the file header while also instantiating a new file any time its called
                 fileWriter = new FileWriter(fileName, false);
@@ -96,7 +90,7 @@ public class Logger {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        if (!startLog)
+        if (!endLog)
         {
             try {
                 fileWriter = new FileWriter(fileName, true);
@@ -113,10 +107,18 @@ public class Logger {
             }
         }
     }
+
+    ////////////    Extra Stuff Don't touch    ///////////////
+    private void endTimeCalculation(){
+        timeElapsed = endTime - startTime;
+        itrCount++;
+        totalTimeSpent +=timeElapsed;
+    }
+
     private void reset(){
         logger = null;
         newFile = true;
-        nameFile = null;
+        fileName = null;
         itrCount =0;
         totalTimeSpent =0;
         averageTimeSpent="";

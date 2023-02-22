@@ -20,9 +20,8 @@ public class RalphsList<R>{
     private Object []c;
 
     /////////////   LOGGERS START   //////////////////////
-//    Logger logger = Logger.LoggerInstance();
-    //        logger.startTimer();
-//        logger.endTimer();
+    Logger logger = Logger.LoggerInstance();
+
     /////////////   LOGGERS END     //////////////////////
 
     /**
@@ -91,9 +90,10 @@ public class RalphsList<R>{
      * Resizes the array by 70%
      */
     private void grow() {
+        logger.startTimer();
         int grothFactor = (int)(arrayResize.length +(.7*arrayResize.length));
         c = Arrays.copyOf(arrayResize, grothFactor);
-
+        logger.endTimer();
     }
 
     // TODO Implement growthFactor advanced
@@ -180,7 +180,6 @@ public class RalphsList<R>{
      */
     public boolean add(R o) {
         checkSize();
-
         for (int i = elemLength; i < arrayResize.length; i++) {
             if (arrayResize[i] == null){
                 arrayResize[i] = o;

@@ -14,7 +14,8 @@ public class RalphsListTest {
     private int vars = ThreadLocalRandom.current().nextInt(-23, bound);
 
      /////////////   LOGGERS START   //////////////////////
-    Logger logger;
+    Logger logger = Logger.LoggerInstance();
+
     //////////////   LOGGERS END     //////////////////////
 
 
@@ -44,12 +45,11 @@ public class RalphsListTest {
 
     @Test
     public void contains() {
-        logger = Logger.LoggerInstance("listContains");
         ArrayList<String> AlistContains = new ArrayList<>();
         RalphsList<String> listContains = new RalphsList<>();
         System.out.println(vars);
+        logger.startLog("listContains");
         for (int i = 0; i <= vars; i++) {
-            logger.running();
             listContains.add(i+"");
             AlistContains.add(i+"");
         }

@@ -23,7 +23,7 @@ public class Car {
     public Car(CarModel model, int plateNum){
         this.model = model;
         this.plateNum = plateNum;
-        this.usableFuel = model.getTankCapacity();
+        this.usableFuel = model.tankCapacity();
     }
 
     //Getters
@@ -55,7 +55,7 @@ public class Car {
      */
     public void tripFuelLoss(double distance){
         // Calculates usable fuel available and then updates the fuel now usable by a car
-        double fuelUsed = (distance/100.0)*model.getFuelEconomy();
+        double fuelUsed = (distance/100.0)*model.fuelEconomy();
         setUsableFuel(usableFuel-fuelUsed);
     }
 }

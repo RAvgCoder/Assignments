@@ -1,15 +1,14 @@
 package Assignment2C1110;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 /**
- * @name CSCI 1110 - Assignment 2
- * @author: Egbor Osebhulimen
- * @date: 12-02-2023
- * @bannerID: B00928317
- * @description: This is a car rental company that can check if current fuel level
+ * @name:         CSCI 1110 - Assignment 2
+ * @author:       Egbor Osebhulimen
+ * @date:         12-02-2023
+ * @bannerID:     B00928317
+ * @description:  This is a car rental company that can check if current fuel level
  * for a given car is sufficient for the customer to drive to the destination
  * it can also keep track of the cars in the case they needed to be refilled.
  * It can also get the number of times a car has traveled a certain distance
@@ -107,7 +106,7 @@ public class Main {
   private static void refillCar(List<Car> cars, String plateNum) {
     cars.stream() // Searches all cars for given car and fill back fuel
           .filter(car -> car.getPlateNum()==Integer.parseInt(plateNum))
-          .forEach(car -> car.setUsableFuel(car.getModel().getTankCapacity()));
+          .forEach(car -> car.setUsableFuel(car.getModel().tankCapacity()));
   }
 
   /**
@@ -119,7 +118,7 @@ public class Main {
   public static void createCar(List<Car> cars, List<CarModel> carModels, String[] input){
     carModels.stream()
           //Searches through all car models, finds and creates a car with specs given
-          .filter(carModelCurrent -> carModelCurrent.getModelName().equals(input[1]))
+          .filter(carModelCurrent -> carModelCurrent.modelName().equals(input[1]))
           .forEach(carModel -> cars.add(new Car(carModel,Integer.parseInt(input[2]))));
   }
 }
