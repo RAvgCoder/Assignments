@@ -1,7 +1,5 @@
 package MyMethods;
 
-import TestLogFiles.Logger;
-
 import java.util.*;
 
 /**
@@ -18,12 +16,6 @@ public class RalphsList<R>{
     private Object[] arrayResize = new Object[]{};   // Initializes an array
     private int elemLength =0;    // Initializes a length of array
     private Object []c;
-
-    /////////////   LOGGERS START   //////////////////////
-//    Logger logger = Logger.LoggerInstance();
-    //        logger.startTimer();
-//        logger.endTimer();
-    /////////////   LOGGERS END     //////////////////////
 
     /**
      * Creates an array with your defined length
@@ -93,7 +85,6 @@ public class RalphsList<R>{
     private void grow() {
         int grothFactor = (int)(arrayResize.length +(.7*arrayResize.length));
         c = Arrays.copyOf(arrayResize, grothFactor);
-
     }
 
     // TODO Implement growthFactor advanced
@@ -180,7 +171,6 @@ public class RalphsList<R>{
      */
     public boolean add(R o) {
         checkSize();
-
         for (int i = elemLength; i < arrayResize.length; i++) {
             if (arrayResize[i] == null){
                 arrayResize[i] = o;
