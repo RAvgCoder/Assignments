@@ -26,14 +26,12 @@ public class RalphsListTest {
 
     @Test
     public void isEmpty() {
-        ArrayList<String> AlistEmpty = new ArrayList<>();
         RalphsList<String> listEmpty = new RalphsList<>();
         System.out.println(vars);
         for (int i = 0; i<vars; i++){
             listEmpty.add(i+"");
-            AlistEmpty.add(i+"");
         }
-        Assert.assertEquals(AlistEmpty.isEmpty(),listEmpty.isEmpty());
+        Assert.assertFalse(listEmpty.isEmpty());
     }
 
     @Test
