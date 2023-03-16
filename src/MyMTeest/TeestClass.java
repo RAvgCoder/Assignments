@@ -1,19 +1,20 @@
 package MyMTeest;
-import TestLogFiles.Logger;
+import TestLogFiles.TxtLogger;
 
 public class TeestClass {
-    static Logger  logger  = Logger.getInstance();
+    static TxtLogger txtLog = TxtLogger.getInstance();
     public static void main(String[] args) {
-            logger.startLog("./src/TestLogFiles/listContains.txt",false);
-            countto1000();
-            logger.endLog();
+        String x = "listContatins";
+        txtLog.startLog(x,true);
+        countto1000();
+        txtLog.endLog();
     }
 
     private static void countto1000() {
-        for (int i = 0; i < 1000; i++) {
-            logger.startTimer();
+        for (int i = 0; i < 100; i++) {
+            txtLog.startTimer();
             System.out.println(i);
-            logger.endTimer();
+            txtLog.endTimer();
         }
     }
 
