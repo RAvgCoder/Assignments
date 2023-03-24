@@ -1,6 +1,8 @@
-package Practice;
+package CusMeth;
 
-public class QueueM<T> extends LinkedListM<T>{
+import CusMeth.LinkedListM;
+
+public class QueueM<T> extends LinkedListM<T> {
     private T t;
     public QueueM(T data)
     {
@@ -9,7 +11,7 @@ public class QueueM<T> extends LinkedListM<T>{
 
     public void add(T data)
     {
-        super.append(data);
+        super.add(data);
     }
 
     public T poll()

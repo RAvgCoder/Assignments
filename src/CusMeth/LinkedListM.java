@@ -1,4 +1,4 @@
-package Practice;
+package CusMeth;
 
 public class LinkedListM<T> {
     private T t;
@@ -32,7 +32,7 @@ public class LinkedListM<T> {
         }
     }
 
-    public void append(T data)
+    public void add(T data)
     {
         if (head==null){
             addFirst(data);
@@ -83,6 +83,7 @@ public class LinkedListM<T> {
             curr.next = rev;
             rev = curr;
             curr = movTo;
+            rev.prev = curr;
         }
         tail = head;
         head = rev;

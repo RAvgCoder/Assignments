@@ -237,8 +237,7 @@ public class RalphsList<R> extends AbstractList<R>{
      * Returns the size of the list given
      * @return Int - Length of list
      */
-    public int size()
-    { return this.elemLength;}
+    public int size(){ return this.elemLength;}
 
     /**
      * Returns the list in form of an array
@@ -263,10 +262,7 @@ public class RalphsList<R> extends AbstractList<R>{
      * @param index int - Position you want to find an element
      * @return R - The element object
      */
-    public R get(int index)
-    {
-        return getElemAsR(index);
-    }
+    public R get(int index){return getElemAsR(index);}
 
     /**
      * Removes element from  a list

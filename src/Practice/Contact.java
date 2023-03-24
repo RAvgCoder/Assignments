@@ -16,18 +16,12 @@ public class Contact implements Comparable<Contact>{
     this.streetName=info[2];
     this.phoneNum=info[3];
   }
-
-  public String getLastName(){return this.lastName;}
-  public String getFirstName(){return this.firstName;}
-  public String getStreetName(){return this.streetName;}
-  public String getPhoneNum(){return this.phoneNum;}
-
   public boolean equals(Object other)
   {
     Field[] fields = this.getClass().getDeclaredFields();
     try {
       for (Field field: fields) {
-        if(!(field.get(this)).equals(field.get(other)))return false;
+        if(!(field.get(this)).equals(field.get(other))) return false;
       }
     }catch (Exception e){
       e.printStackTrace();

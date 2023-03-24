@@ -1,38 +1,33 @@
 package Practice;
+
 import java.util.*;
-import java.util.stream.*;
 
 //Lab 9
 public class AddressBook {
-  private ArrayList<Contact> list;
+  private TreeMap<String,Contact> list;
 
-  public AddressBook(){this.list = new ArrayList<>();}
-
-  public ArrayList<Contact> getList(){return this.list;}
+  public AddressBook(){this.list = new TreeMap<>();}
 
   public void addContact(Contact c){
-    list.stream()
-//            .filter(contact -> contact.getPhoneNum().equals(c.getPhoneNum()))
-            .filter(contact -> contact.equals(c))
-            .findFirst()
-            .orElseGet(() -> {
-              list.add(c);
-              return null;
-            });
+    list.put(c.toString(),c);
   }
 
   public int deleteContact(String otherLastName){
-      int size = list.size();
-      list.removeIf(contact -> contact.getLastName().equals(otherLastName));
-      return size- list.size();
+    ArrayList<String> tempContacts = new ArrayList<>();
+    int size = list.size();
+
+    for (String key : list.keySet())
+        if (key.split(",")[0].equals(otherLastName)) tempContacts.add(key);
+
+    for (String s: tempContacts)
+      list.remove(s);
+
+    return size- list.size();
   }
 
   public String toString()
   {
-    return list.stream()
-            .sorted(Contact::compareTo)
-            .map(Object::toString)
-            .collect(Collectors.joining("\n"));
+    return String.join("\n", list.keySet());
   }
 }    
 

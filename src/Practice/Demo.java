@@ -10,7 +10,6 @@ public class Demo {
 
     int contactLen = in.nextInt();
     ArrayList<String> contactArr = new ArrayList<>(List.of(in.nextLine().trim().split("\\s+")));
-    System.out.println(contactArr);
 
     for(int i=0; i<contactLen; i++){
       addressBook.addContact(
@@ -20,7 +19,9 @@ public class Demo {
 
     System.out.println(addressBook+"\n");
 
-    Contact newContact = new Contact(contactArr.remove(contactArr.size()-4),contactArr.remove(contactArr.size()-3),contactArr.remove(contactArr.size()-2),contactArr.remove(contactArr.size()-1));
+    Contact newContact = new Contact(
+      contactArr.remove(contactArr.size()-4),contactArr.remove(contactArr.size()-3),contactArr.remove(contactArr.size()-2),contactArr.remove(contactArr.size()-1)
+    );
 
     int deletedAcc=0;
     while (contactArr.size()!=0) {
