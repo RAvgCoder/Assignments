@@ -1,0 +1,14 @@
+Bottle A: Starting at (1, 1)
+Bottle B: Starting at (2, 0)
+0: Bottle A at (1, 1): In ocean, current taking it W.
+0: Bottle B at (2, 0): In ocean, current taking it E.
+1: Bottle A at (1, 0): In ocean, current taking it S.
+1: Bottle B at (2, 1): In ocean, current taking it E.
+2: Bottle A at (2, 0): In ocean, current taking it E.
+2: Bottle B at (2, 2): In ocean, current taking it E.
+3: Bottle A at (2, 1): In ocean, current taking it E.
+3: Bottle B at (2, 3): LANDED!
+<<MESSAGE RECEIVED: Keep clam and carry on!>>
+4: Bottle A at (2, 2): In ocean, current taking it E.
+5: Bottle A at (2, 3): LANDED!
+<<MESSAGE RECEIVED: Greetings from far away lands! Smile often and “seas” the day!>>

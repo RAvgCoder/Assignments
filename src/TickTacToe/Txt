@@ -1,0 +1,114 @@
+Diagonal
+    Right -> Left  {p1}
+2 A
+0 A
+1 B
+2 C
+0 C
+    Right -> Left  {p1}
+0 A
+2 A
+2 C
+1 B
+1 A
+0 C
+    Left -> Right {p1}
+1 B
+2 A
+1 A
+1 C
+1 B
+0 A
+0 C
+2 C
+    left -> Right {p2}
+2 A
+1 B
+0 C
+0 A
+2 B
+2 C
+
+Vertical
+    Col1 {p1}
+0 A
+2 C
+1 A
+1 B
+2 A
+    Col1 {p2}
+2 B
+0 A
+1 C
+1 A
+0 B
+2 A
+    Col2 {p1}
+0 B
+0 C
+1 B
+1 A
+2 B
+    Col2 {p2}
+2 A
+0 B
+1 C
+1 B
+0 A
+2 B
+    Col3 {p1}
+0 C
+2 A
+1 C
+1 A
+2 C
+    Col3 {p2}
+2 A
+0 C
+1 B
+1 C
+0 A
+2 C
+
+Horizontal
+    Row1 {p1}
+1 A
+1 B
+0 A
+2 C
+2 A
+    Row1 {p2}
+1 B
+2 A
+0 C
+0 A
+0 B
+1 A
+    Row2 {p1}
+1 B
+1 A
+0 B
+2 C
+2 B
+    Row2 {p2}
+1 A
+1 B
+2 C
+0 B
+2 A
+2 B
+    Row3 {p1}
+1 C
+1 B
+0 C
+2 B
+2 C
+    Row3 {p2}
+1 B
+1 C
+2 B
+0 C
+2 A
+2 C
+
+

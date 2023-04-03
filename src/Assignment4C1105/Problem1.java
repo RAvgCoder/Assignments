@@ -17,7 +17,7 @@ public class Problem1{
         Scanner kb = new Scanner(System.in);
 
         // initalizes a 3x3 grid
-        int grid[][] = new int[3][3];
+        int[][] grid = new int[3][3];
 
         // Global Variables
         int row;

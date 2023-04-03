@@ -1,0 +1,27 @@
+~ ~ ~ ~ ~ ~ File Info ~ ~ ~ ~ ~ ~
+Wed., Feb. 22 2023 16:21:34
+--------------------------------
+Changes
+--------------------------------
+a) Code refactoring
+b) Implemented sorting to my Custom list with tests
+c) Custom list now extends AbstractList
+d) Removed contains(elem)
+d) Removed indexOf(elem)
+e) Removed lastIndexOf(elem)
+f) Remade Logger in to an abstract class.
+g) Created an interface for all classes that want to be
+   able to log files
+
+
+
+--------------------------------
+Bug_Fixes
+--------------------------------
+a)
+
+----------
+what are java servlets?
+what are the different J2EE components?
+
+

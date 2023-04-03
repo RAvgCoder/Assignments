@@ -1,0 +1,9 @@
+Eternal Drifter: Starting at (0, 1)
+Looper: Starting at (2, 2)
+0: Eternal Drifter at (0, 1): In ocean, current taking it E.
+0: Looper at (2, 2): In ocean, current taking it W.
+1: Eternal Drifter at (0, 2): In ocean, current taking it W.
+1: Looper at (2, 1): In ocean, current taking it N.
+2: Eternal Drifter at (0, 1): <<NOW STUCK IN MID-OCEAN GYRE!>>
+2: Looper at (1, 1): In ocean, current taking it S.
+3: Looper at (2, 1): <<NOW STUCK IN MID-OCEAN GYRE!>>

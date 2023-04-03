@@ -1,5 +1,7 @@
 package Assignment2C1110;
 import java.util.*;
+import java.util.stream.Collectors;
+
 /**
  * @name CSCI 1110 - Assignment 2
  * @author: Egbor Osebhulimen
@@ -8,7 +10,7 @@ import java.util.*;
  * @description: Creates a car which can hold properties from a carModel.
  */
 
-public class Car {
+public class Car{
     // Instance variables
     private CarModel model = null;
     private final int plateNum;
@@ -39,9 +41,6 @@ public class Car {
     public List<Integer> getAllTrips(){return allTrips;}
 
     //Setters
-    public void setModel(CarModel model) {
-        this.model = model;
-    }
     public void setUsableFuel(double usableFuel) {
         this.usableFuel = usableFuel;
     }
@@ -57,5 +56,11 @@ public class Car {
         // Calculates usable fuel available and then updates the fuel now usable by a car
         double fuelUsed = (distance/100.0)*model.fuelEconomy();
         setUsableFuel(usableFuel-fuelUsed);
+    }
+
+    public List<Integer> getFilteredTrips(int distance){
+        return allTrips.stream()
+                .filter(tripLength -> tripLength >= distance)
+                .collect(Collectors.toList());
     }
 }
