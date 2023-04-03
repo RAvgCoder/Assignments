@@ -54,7 +54,7 @@ public class Earth
             }
         }
         // Conforms stitch was done correctly
-//        runDepthFirstSearch();
+        runDepthFirstSearch();
     }
 
     /**
