@@ -1,8 +1,7 @@
-package Assignment4C1110;
+package Practice;
 
-public class Main {
+public class Teesst {
     public static void main(String[] args) {
 
     }
 }
-

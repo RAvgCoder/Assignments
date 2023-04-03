@@ -2,14 +2,14 @@ package TickTacToe;
 
 import java.util.Scanner;
 
-public class Main {
+public class Man {
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         Board board = new Board(3);  // Initializes a new board
         Player player1 = null;  // Initializes player1
         Player player2 = null;  // Initializes player2
-        Player player[] = new Player[]{player1, player2}; // Stores players
+        Player[] player = new Player[]{player1, player2}; // Stores players
 
         System.out.println("Play with an Ai {Y} / {N}");
         boolean useAi = in.next().equalsIgnoreCase("Y");    // Checks if uses want to play against Ai
@@ -26,6 +26,7 @@ public class Main {
                 System.out.println(j+" "+(char)(i+'A'));
             }
         }
+        ///////////////////////////////////////////////////////////////////////
 
         do{
             board.bordReset(3);
@@ -71,6 +72,7 @@ public class Main {
     {
         int count=0;
         while(!board.noSpaceOnBoard()) {
+            clearScreen();
             count = count%2; // Decides which player gets to play
             System.out.println(player[count].getEmoticon() + " its your turn");
             System.out.println("Input x & y coordinate {eg 0 A}");
@@ -101,6 +103,15 @@ public class Main {
         }
         // If no winner
         System.out.println("Game ends in a tie, men y'all are too good for this game 😒");
+    }
+
+    /**
+     * Clears the screen for the users to play again
+     * @author: https://stackoverflow.com/questions/2979383/how-to-clear-the-console
+     */
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
 }

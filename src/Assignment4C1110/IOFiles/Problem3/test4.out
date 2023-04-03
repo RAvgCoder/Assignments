@@ -1,0 +1,16 @@
+Ocean Traveler: Starting at (1, 4)
+Sidestep: Starting at (1, 5)
+Land Ho!: Starting at (2, 2)
+0: Ocean Traveler at (1, 4): In ocean, current taking it S.
+0: Sidestep at (1, 5): In ocean, current taking it S.
+0: Land Ho! at (2, 2): In ocean, current taking it S.
+1: Ocean Traveler at (2, 4): In ocean, current taking it W.
+1: Sidestep at (2, 5): LANDED!
+<<MESSAGE RECEIVED: Keep on, keeping on!>>
+1: Land Ho! at (3, 2): In ocean, current taking it E.
+2: Ocean Traveler at (2, 3): In ocean, current taking it N.
+2: Land Ho! at (3, 3): In ocean, current taking it E.
+3: Ocean Traveler at (1, 3): In ocean, current taking it E.
+3: Land Ho! at (3, 4): LANDED!
+<<MESSAGE RECEIVED: If you read me, I've made it somewhere. Please tell me where!>>
+4: Ocean Traveler at (1, 4): <<NOW STUCK IN MID-OCEAN GYRE!>>

@@ -1,0 +1,63 @@
+Drifter A: Starting at (0, 2)
+Drifter B: Starting at (3, 3)
+Drifter C: Starting at (8, 8)
+Drifter D: Starting at (15, 15)
+0: Drifter A at (0, 2): In ocean, current taking it S.
+0: Drifter B at (3, 3): In ocean, current taking it S.
+0: Drifter C at (8, 8): In ocean, current taking it S.
+0: Drifter D at (15, 15): In ocean, current taking it S.
+1: Drifter A at (1, 2): LANDED!
+<<MESSAGE RECEIVED: See you soon!>>
+1: Drifter B at (4, 3): In ocean, current taking it S.
+1: Drifter C at (9, 8): In ocean, current taking it S.
+1: Drifter D at (16, 15): In ocean, current taking it S.
+2: Drifter B at (5, 3): In ocean, current taking it S.
+2: Drifter C at (10, 8): In ocean, current taking it S.
+2: Drifter D at (17, 15): In ocean, current taking it N.
+3: Drifter B at (6, 3): In ocean, current taking it S.
+3: Drifter C at (11, 8): In ocean, current taking it S.
+3: Drifter D at (16, 15): <<NOW STUCK IN MID-OCEAN GYRE!>>
+4: Drifter B at (7, 3): In ocean, current taking it S.
+4: Drifter C at (12, 8): In ocean, current taking it S.
+5: Drifter B at (8, 3): In ocean, current taking it S.
+5: Drifter C at (13, 8): In ocean, current taking it S.
+6: Drifter B at (9, 3): In ocean, current taking it S.
+6: Drifter C at (14, 8): In ocean, current taking it S.
+7: Drifter B at (10, 3): In ocean, current taking it S.
+7: Drifter C at (15, 8): In ocean, current taking it S.
+8: Drifter B at (11, 3): In ocean, current taking it S.
+8: Drifter C at (16, 8): In ocean, current taking it S.
+9: Drifter B at (12, 3): In ocean, current taking it S.
+9: Drifter C at (17, 8): In ocean, current taking it S.
+10: Drifter B at (13, 3): In ocean, current taking it S.
+10: Drifter C at (18, 8): In ocean, current taking it E.
+11: Drifter B at (14, 3): In ocean, current taking it S.
+11: Drifter C at (18, 9): In ocean, current taking it E.
+12: Drifter B at (15, 3): In ocean, current taking it S.
+12: Drifter C at (18, 10): In ocean, current taking it E.
+13: Drifter B at (16, 3): In ocean, current taking it S.
+13: Drifter C at (18, 11): In ocean, current taking it E.
+14: Drifter B at (17, 3): In ocean, current taking it S.
+14: Drifter C at (18, 12): In ocean, current taking it E.
+15: Drifter B at (18, 3): In ocean, current taking it S.
+15: Drifter C at (18, 13): In ocean, current taking it E.
+16: Drifter B at (19, 3): In ocean, current taking it E.
+16: Drifter C at (18, 14): In ocean, current taking it E.
+17: Drifter B at (19, 4): In ocean, current taking it E.
+17: Drifter C at (18, 15): In ocean, current taking it E.
+18: Drifter B at (19, 5): In ocean, current taking it E.
+18: Drifter C at (18, 16): In ocean, current taking it E.
+19: Drifter B at (19, 6): In ocean, current taking it E.
+19: Drifter C at (18, 17): LANDED!
+<<MESSAGE RECEIVED: Land or bust!>>
+20: Drifter B at (19, 7): In ocean, current taking it E.
+21: Drifter B at (19, 8): In ocean, current taking it E.
+22: Drifter B at (19, 9): In ocean, current taking it E.
+23: Drifter B at (19, 10): In ocean, current taking it E.
+24: Drifter B at (19, 11): In ocean, current taking it E.
+25: Drifter B at (19, 12): In ocean, current taking it E.
+26: Drifter B at (19, 13): In ocean, current taking it E.
+27: Drifter B at (19, 14): In ocean, current taking it E.
+28: Drifter B at (19, 15): In ocean, current taking it E.
+29: Drifter B at (19, 16): LANDED!
+<<MESSAGE RECEIVED: Last one there is a rotten egg!>>

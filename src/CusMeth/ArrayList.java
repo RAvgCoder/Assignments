@@ -11,8 +11,8 @@ import java.util.*;
  * @param <R>
  */
 
-//public class RalphsList<R> implements List<R>{
-public class RalphsList<R> extends AbstractList<R>{
+//public class ArrayList<R> implements List<R>{
+public class ArrayList<R> extends AbstractList<R>{
     private R r; // r must be null
     private int index = -1; // When used set back to -1;
     private Object[] arrayResize = new Object[]{};   // Initializes an array
@@ -27,7 +27,7 @@ public class RalphsList<R> extends AbstractList<R>{
      * Creates an array with your defined length
      * @param length Length on the array created
      */
-    public RalphsList(int length)
+    public ArrayList(int length)
     {  // Creates  a resizable array with given length
         if (length>0) {
             this.arrayResize = new Object[length];
@@ -40,14 +40,14 @@ public class RalphsList<R> extends AbstractList<R>{
     /**
      * Creates a default size starting array
      */
-    public RalphsList()
+    public ArrayList()
     { this.arrayResize = new Object[10];}
 
     /**
      * Creates a resizable array with an array given
      * @param c An array given
      */
-    public RalphsList(R[] c)
+    public ArrayList(R[] c)
     {
         if (c.length!=0)
             this.arrayResize = c.clone();
@@ -58,7 +58,7 @@ public class RalphsList<R> extends AbstractList<R>{
      * Creates another resizable list from a List
      * @param list The list you want copied
      */
-    public RalphsList(List<R> list)
+    public ArrayList(List<R> list)
     {
         this.arrayResize =  list.toArray().clone();
         this.elemLength = list.toArray().length;

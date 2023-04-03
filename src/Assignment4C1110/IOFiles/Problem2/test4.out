@@ -1,0 +1,26 @@
+Drifter E: Starting at (0, 1)
+Floaty McFloatface: Starting at (2, 3)
+0: Drifter E at (0, 1): In ocean, current taking it E.
+0: Floaty McFloatface at (2, 3): In ocean, current taking it W.
+1: Drifter E at (0, 2): In ocean, current taking it E.
+1: Floaty McFloatface at (2, 2): In ocean, current taking it W.
+2: Drifter E at (0, 3): In ocean, current taking it E.
+2: Floaty McFloatface at (2, 1): In ocean, current taking it W.
+3: Drifter E at (0, 4): In ocean, current taking it S.
+3: Floaty McFloatface at (2, 0): In ocean, current taking it S.
+4: Drifter E at (1, 4): In ocean, current taking it W.
+4: Floaty McFloatface at (3, 0): In ocean, current taking it E.
+5: Drifter E at (1, 3): In ocean, current taking it S.
+5: Floaty McFloatface at (3, 1): In ocean, current taking it E.
+6: Drifter E at (2, 3): In ocean, current taking it W.
+6: Floaty McFloatface at (3, 2): In ocean, current taking it E.
+7: Drifter E at (2, 2): In ocean, current taking it W.
+7: Floaty McFloatface at (3, 3): LANDED!
+<<MESSAGE RECEIVED: Keep clam and carry on!>>
+8: Drifter E at (2, 1): In ocean, current taking it W.
+9: Drifter E at (2, 0): In ocean, current taking it S.
+10: Drifter E at (3, 0): In ocean, current taking it E.
+11: Drifter E at (3, 1): In ocean, current taking it E.
+12: Drifter E at (3, 2): In ocean, current taking it E.
+13: Drifter E at (3, 3): LANDED!
+<<MESSAGE RECEIVED: Greetings from far away lands! Smile often and “seas” the day!>>

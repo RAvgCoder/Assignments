@@ -1,10 +1,9 @@
 package CusMeth;
 
-import TestLogFiles.AbstractLogger;
 import TestLogFiles.TxtLogger;
 import org.junit.Assert;
 import org.junit.Test;
-import java.util.ArrayList;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,8 +16,8 @@ public class RalphsListTest {
 
     @Test
     public void size() {
-        ArrayList<Integer> AlistSize = new ArrayList<>(List.of(testArray));
-        RalphsList<Integer> listSize = new RalphsList<>(testArray);
+        java.util.ArrayList<Integer> AlistSize = new java.util.ArrayList<>(List.of(testArray));
+        ArrayList<Integer> listSize = new ArrayList<>(testArray);
         System.out.println(vars);
         TxtLogger loggers = TxtLogger.getInstance();
         loggers.startLog("Thyson",true);
@@ -32,7 +31,7 @@ public class RalphsListTest {
 
     @Test
     public void isEmpty() {
-        RalphsList<String> listEmpty = new RalphsList<>();
+        ArrayList<String> listEmpty = new ArrayList<>();
         System.out.println(vars);
         for (int i = 0; i<vars; i++){
             listEmpty.add(i+"");
@@ -42,8 +41,8 @@ public class RalphsListTest {
 
     @Test
     public void contains() {
-        ArrayList<String> AlistContains = new ArrayList<>();
-        RalphsList<String> listContains = new RalphsList<>();
+        java.util.ArrayList<String> AlistContains = new java.util.ArrayList<>();
+        ArrayList<String> listContains = new ArrayList<>();
         System.out.println(vars);
         for (int i = 0; i <= vars; i++) {
             listContains.add(i+"");
@@ -55,16 +54,16 @@ public class RalphsListTest {
 
     @Test
     public void add() {
-        ArrayList<Integer> AlistAdd = new ArrayList<>(List.of(testArray));
-        RalphsList<Integer> listAdd = new RalphsList<>(List.of(testArray));
+        java.util.ArrayList<Integer> AlistAdd = new java.util.ArrayList<>(List.of(testArray));
+        ArrayList<Integer> listAdd = new ArrayList<>(List.of(testArray));
         System.out.println(vars);
         Assert.assertEquals(AlistAdd.add(vars),listAdd.add(vars));
     }
 
     @Test
     public void remove() {
-        ArrayList<Integer> AlistRemove = new ArrayList<>();
-        RalphsList<Integer> listRemove = new RalphsList<>();
+        java.util.ArrayList<Integer> AlistRemove = new java.util.ArrayList<>();
+        ArrayList<Integer> listRemove = new ArrayList<>();
         System.out.println(vars);
         for (int i = 0; i < vars; i++) {
             listRemove.add(i);
@@ -78,8 +77,8 @@ public class RalphsListTest {
         Assert.assertEquals(AlistRemove.size(), listRemove.size());
 
         // Removes Object from the list
-        ArrayList<String> AlistRemoves = new ArrayList<>();
-        RalphsList<String> listRemoves = new RalphsList<>();
+        java.util.ArrayList<String> AlistRemoves = new java.util.ArrayList<>();
+        ArrayList<String> listRemoves = new ArrayList<>();
         for (int i = 0; i < vars; i++) {
             listRemoves.add(i+"");
             AlistRemoves.add(i+"");
@@ -90,8 +89,8 @@ public class RalphsListTest {
 
     @Test
     public void addAll() {
-        ArrayList<Integer> AlistAddAll  = new ArrayList<>();
-        RalphsList<Integer> listAddAll = new RalphsList<>();
+        java.util.ArrayList<Integer> AlistAddAll  = new java.util.ArrayList<>();
+        ArrayList<Integer> listAddAll = new ArrayList<>();
         System.out.println(vars);
         AlistAddAll.addAll(List.of(testArray));
         listAddAll.addAll(testArray);
@@ -101,8 +100,8 @@ public class RalphsListTest {
 
     @Test
     public void clear() {
-        ArrayList<Integer> AlistClear = new ArrayList<>(List.of(testArray));
-        RalphsList<Integer> listClear = new RalphsList<>(testArray);
+        java.util.ArrayList<Integer> AlistClear = new java.util.ArrayList<>(List.of(testArray));
+        ArrayList<Integer> listClear = new ArrayList<>(testArray);
         System.out.println(vars);
         for (int i=0; i<vars; i++){
             AlistClear.add(vars);
@@ -115,8 +114,8 @@ public class RalphsListTest {
 
     @Test
     public void trimToSize(){
-        ArrayList<Boolean> AlistTrim = new ArrayList<>();
-        RalphsList<Boolean> listTrim = new RalphsList<>();
+        java.util.ArrayList<Boolean> AlistTrim = new java.util.ArrayList<>();
+        ArrayList<Boolean> listTrim = new ArrayList<>();
         System.out.println(vars);
         for (int i=0; i<vars; i++){
             AlistTrim.add(vars>Math.random());
@@ -129,8 +128,8 @@ public class RalphsListTest {
 
     @Test
     public void indexOf() {
-        ArrayList<Integer> AlistIndexOf = new ArrayList<>();
-        RalphsList<Integer> listIndexOf = new RalphsList<>();
+        java.util.ArrayList<Integer> AlistIndexOf = new java.util.ArrayList<>();
+        ArrayList<Integer> listIndexOf = new ArrayList<>();
         System.out.println(vars);
         for (int i = 0; i < vars; i++) {
             AlistIndexOf.add(i);
@@ -143,8 +142,8 @@ public class RalphsListTest {
 
     @Test
     public void lastIndexOf() {
-        ArrayList<Integer> AlistLastIndexOf = new ArrayList<>();
-        RalphsList<Integer> listLastIndexOf = new RalphsList<>();
+        java.util.ArrayList<Integer> AlistLastIndexOf = new java.util.ArrayList<>();
+        ArrayList<Integer> listLastIndexOf = new ArrayList<>();
         System.out.println(vars);
         for (int i = 0; i < vars; i++) {
             AlistLastIndexOf.add(i);
@@ -156,8 +155,8 @@ public class RalphsListTest {
 
     @Test
     public void get() {
-        ArrayList<Integer> AlistGet = new ArrayList<>();
-        RalphsList<Integer> listGet = new RalphsList<>();
+        java.util.ArrayList<Integer> AlistGet = new java.util.ArrayList<>();
+        ArrayList<Integer> listGet = new ArrayList<>();
         System.out.println(vars);
         for (int i = 0; i < vars; i++) {
             AlistGet.add(i);
@@ -169,8 +168,8 @@ public class RalphsListTest {
 
     @Test
     public void sort() {
-        RalphsList<Integer> list = new RalphsList<>();
-        ArrayList<Integer> Alist = new ArrayList<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        java.util.ArrayList<Integer> Alist = new java.util.ArrayList<>();
         for (int i = 0; i < vars; i++) {
             int x = (int) (i%Math.random());
             list.add(x);

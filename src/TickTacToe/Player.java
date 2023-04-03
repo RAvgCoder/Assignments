@@ -1,15 +1,14 @@
 package TickTacToe;
 
-import CusMeth.RalphsList;
-
 import java.util.ArrayList;
+
 import java.util.Iterator;
 
 public class Player{
     private final String playerSymbol;  // X/O
     private String emoticon;    // X_X / O_O / A_A
     private final boolean usingAi;  // if you want to use Ai
-    private RalphsList<Integer> playerScore = new RalphsList<>(); //Keeps track of all players scores for each round
+    private ArrayList<Integer> playerScore = new ArrayList<>(); //Keeps track of all players scores for each round
     private Iterator<Integer> itr = playerScore.iterator();
 
 
