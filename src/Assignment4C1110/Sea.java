@@ -10,29 +10,33 @@ package Assignment4C1110;
  */
 public class Sea extends Tile
 {
-    public Sea(String symbol){super(symbol,"Sea");}
+    public Sea(String symbol){super(symbol);}
 
     /**
      *   Sinks the bottle if it's stuck
      *   in the ocean
      */
-    public void sinkBottle()
+    public void sinkBottle(Bottle myBottle)
     {
-        System.out.printf(
-                "%s: %s at (%d, %d): <<NOW STUCK IN MID-OCEAN GYRE!>>\n",
-                myBottle.getCount(),
-                myBottle,
-                getCoordinate()[0],
-                getCoordinate()[1]
-        );
-        myBottle = null;
+        if (myBottle.getCurrPosition().hasNextPosition()){
+            System.out.printf(
+                    "%s: %s at (%d, %d): <<NOW STUCK IN MID-OCEAN GYRE!>>\n",
+                    myBottle.getCount(),
+                    myBottle,
+                    getCoordinate()[0],
+                    getCoordinate()[1]
+            );
+        }
+        else {
+            System.out.printf(
+                    "%s: %s at (%d, %d):\n >-Have NOW FALLEN OF THE EARTH😔. HURRAY FLAT EATTHERS!-<\n",
+                    myBottle.getCount(),
+                    myBottle,
+                    getCoordinate()[0],
+                    getCoordinate()[1]
+            );
+        }
     }
-
-    /**
-     * Passes the bottle from one sea to the other
-     * @return bottle sailing on the sea
-     */
-    public void removeBottle(){myBottle = null;}
 
     /**
      * Sets the next position that that a sea

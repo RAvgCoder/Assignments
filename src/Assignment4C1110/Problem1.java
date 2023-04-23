@@ -63,7 +63,6 @@ public class Problem1
             Bottle newBottle = new Bottle(name, input.nextLine(), map[x][y]);
             newBottle.setCurrPosition(map[x][y]);
             bottles.add(newBottle);
-            map[x][y].acceptBottle(newBottle);
         }
     }
 

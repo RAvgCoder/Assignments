@@ -1,9 +1,8 @@
 package Assignment4C1110;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -16,13 +15,25 @@ import java.util.stream.Collectors;
  *               in the sea documenting it down till it gets to the Land. It alsp wold
  *               have the capbility to sink the bottle if it gets stuck in the ocean.
  */
-public class Problem2
+public class GeneratorProb
 {
+    static int objectsCreated =0;
     public static void main(String[] args) {
         var start = System.nanoTime();
-        Scanner input = new Scanner(System.in);
-        List<Bottle> bottles = new ArrayList<>();
+        QuestionGenerator.main(null);
+        Scanner input = null;
+        try {
+            input = new Scanner(QuestionGenerator.fileName);
+//            input = new Scanner(new File("C:\\Users\\egbor\\Pictures\\Ass4DeathScript.txt"));
+            Scanner print = new Scanner(QuestionGenerator.fileName);
+            while (print.hasNext()){
+                System.out.println(print.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
+        List<Bottle> bottles = new LinkedList<>();
         int[] mapSize = Arrays.stream(input.nextLine().trim().split("\\s+"))
                 .mapToInt(Integer::parseInt).toArray();
 
@@ -39,14 +50,12 @@ public class Problem2
 
         // Defines what tiles of the map are land and then sets sea current for the rest
         earth.setLandParts(landAndSeaInput);
-
-        // Decides where each part of sea would point to
-        earth.runMapStitching();
+        landAndSeaInput = null;
 
         // Creates all the bottles that you want to send on the journey
         createBottle(earth.getMap(), bottles, input);
 
-         System.out.println(earth);
+//         System.out.println(earth);
 
         // Prints out the bottles names and starting locations
         bottles.forEach(bottle -> System.out.printf(
@@ -65,7 +74,11 @@ public class Problem2
 
         input.close();
 
-        System.out.println("\n".repeat(2)+(System.nanoTime()-start)/1000000);
+        System.out.println(
+                "\n".repeat(2)+"Program finished in "
+                +(double)(System.nanoTime()-start)/1000000000 +"sec"
+        );
+        System.out.println("Bottle objects created >>: "+objectsCreated);
     }
 
     /**
@@ -78,6 +91,7 @@ public class Problem2
     {
         int numberOfBottles = Integer.parseInt(input.nextLine());
         for (int i = 0; i < numberOfBottles; i++) {
+            objectsCreated++;
             // Bottle position
             int x = input.nextInt();
             int y = input.nextInt();

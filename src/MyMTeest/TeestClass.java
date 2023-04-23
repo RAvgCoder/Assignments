@@ -1,13 +1,13 @@
 package MyMTeest;
 import TestLogFiles.TxtLogger;
 
+import java.util.Arrays;
+
 public class TeestClass {
     static TxtLogger txtLog = TxtLogger.getInstance();
     public static void main(String[] args) {
-        String x = "listContatins";
-        txtLog.startLog(x,true);
-        countto1000();
-        txtLog.endLog();
+        System.out.println(Arrays.toString("lis tConta:tins".split("[: ]")));
+
     }
 
     private static void countto1000() {

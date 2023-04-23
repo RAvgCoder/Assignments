@@ -10,12 +10,12 @@ package Assignment4C1110;
  */
 public class Land extends Tile
 {
-    public Land(){super("X","Land");}
+    public Land(){super("X");}
 
     /**
     *   Receives a message from a bottle
     */
-    public void receiveMessage()
+    public void receiveMessage(Bottle myBottle)
     {
         System.out.printf(
                 "%d: %s at (%d, %d): LANDED!"+"\n"+
@@ -26,8 +26,6 @@ public class Land extends Tile
                 getCoordinate()[1],
                 myBottle.getMessage()
         );
-        String x ="";
-        x.length();
     }
 
     /**

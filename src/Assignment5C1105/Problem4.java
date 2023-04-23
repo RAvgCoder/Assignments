@@ -78,7 +78,7 @@ public class Problem4 {
      */
     public static void attackGrid(int[][] board, char col, char row) {
         //Creates a mapping  for rows and col to the index
-        HashMap<Character, Integer> colList = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> colList = new HashMap<>();
         colList.put('A', 0);
         colList.put('B', 1);
         colList.put('C', 2);
@@ -88,7 +88,7 @@ public class Problem4 {
         colList.put('G', 6);
         colList.put('H', 7);
 
-        HashMap<Character, Integer> rowList = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> rowList = new HashMap<>();
         rowList.put('1', 0);
         rowList.put('2', 1);
         rowList.put('3', 2);
@@ -123,7 +123,7 @@ public class Problem4 {
      */
     public static void setTarget(int[][] board, char col, char row) {
         //Creates a mapping  for rows and col to the index
-        HashMap<Character, Integer> colList = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> colList = new HashMap<>();
         colList.put('A', 0);
         colList.put('B', 1);
         colList.put('C', 2);
@@ -133,7 +133,7 @@ public class Problem4 {
         colList.put('G', 6);
         colList.put('H', 7);
 
-        HashMap<Character, Integer> rowList = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> rowList = new HashMap<>();
         rowList.put('1', 0);
         rowList.put('2', 1);
         rowList.put('3', 2);
@@ -154,34 +154,34 @@ public class Problem4 {
      * @return  The grid in a string form
      */
     public static String getGrid(int[][] board) {
-        String boardString = "";
+        StringBuilder boardString = new StringBuilder();
 
         //Prints hit[X] or miss[O] on the board
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (i == 0 && j == 0) {
                     if (board[i][j] == 3) {
-                        boardString = "X";
+                        boardString = new StringBuilder("X");
                     } else if(board[i][j] == 4){
-                        boardString = "O";
+                        boardString = new StringBuilder("O");
                     }else {
-                        boardString = "_";
+                        boardString = new StringBuilder("_");
                     }
                 }
                 else {
                     if (board[i][j] == 3) {
-                        boardString += "X";
+                        boardString.append("X");
                     } else if(board[i][j] == 4){
-                        boardString += "O";
+                        boardString.append("O");
                     }else {
-                        boardString += "_";
+                        boardString.append("_");
                     }
                 }
 
             }
         }
 
-        return boardString;
+        return boardString.toString();
 
     }
 
@@ -202,11 +202,7 @@ public class Problem4 {
                 }
             }
         }
-
-        if(defeatCount>0){
-            return false;
-        }
-        return true;
+        return defeatCount <= 0;
     }
 
     /**

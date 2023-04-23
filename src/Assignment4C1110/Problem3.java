@@ -1,9 +1,6 @@
 package Assignment4C1110;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -21,7 +18,7 @@ public class Problem3
     public static void main(String[] args) {
         var start = System.nanoTime();
         Scanner input = new Scanner(System.in);
-        List<Bottle> bottles = new ArrayList<>();
+        List<Bottle> bottles = new LinkedList<>();
 
         int[] mapSize = Arrays.stream(input.nextLine().trim().split("\\s+"))
                 .mapToInt(Integer::parseInt).toArray();
@@ -86,7 +83,6 @@ public class Problem3
             Bottle newBottle = new Bottle(name, input.nextLine(), map[x][y]);
             newBottle.setCurrPosition(map[x][y]);
             bottles.add(newBottle);
-            map[x][y].acceptBottle(newBottle);
         }
     }
 }

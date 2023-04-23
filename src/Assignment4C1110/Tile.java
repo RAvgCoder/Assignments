@@ -11,24 +11,11 @@ package Assignment4C1110;
 public abstract class Tile
 {
     private final String symbol;
-    private final String type;
     private int[] coordinate;
     protected Tile nextPosition;
-    protected Bottle myBottle;
 
-    public Tile(String symbol, String type){
+    public Tile(String symbol){
         this.symbol = symbol;
-        this.type = type;
-    }
-
-    /**
-     * Sets a bottle to that particular section
-     * of the sea
-     * @param myBottle Bottle entering that part
-     *                 of the ocean
-     */
-    public void acceptBottle(Bottle myBottle){
-        this.myBottle = myBottle;
     }
 
     /**
@@ -37,15 +24,6 @@ public abstract class Tile
      * @return Direction
      */
     public String getSymbol(){return symbol;}
-
-    /**
-     * Type of section it is - Land or Sea
-     * @return Type of section
-     */
-    public String getType()
-    {
-        return type;
-    }
 
     /**
      * Sets the coordinate this particular section
@@ -77,10 +55,8 @@ public abstract class Tile
     *          if not
     */
     public boolean hasNextPosition(){
-        return nextPosition == null || myBottle.isStuck();
+        return nextPosition == null ;
     }
-
-    public Bottle getMyBottle(){return myBottle;}
 
     /**
      * Sets the next position that that section

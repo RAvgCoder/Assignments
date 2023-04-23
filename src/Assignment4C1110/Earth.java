@@ -2,7 +2,6 @@ package Assignment4C1110;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * @name CSCI 1110 - Assignment 3
@@ -41,7 +40,7 @@ public class Earth
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 Tile tile = map[i][j];
-                if (tile.getType().equals("Sea")){
+                if (tile instanceof Sea){
                     // Finds the next point of the map that the sea should point to
                     int[] nextPoint = calculateDirection((Sea) tile);
                     // Gives the sea that coordinate to follow
@@ -54,7 +53,7 @@ public class Earth
             }
         }
         // Conforms stitch was done correctly
-        runDepthFirstSearch();
+//        runDepthFirstSearch();
     }
 
     /**
@@ -70,7 +69,19 @@ public class Earth
             map[x][y].setCoordinate(x,y);
         });
         // Fills remaining tiles with water
+        stats(landAndSeaInput);
         fillWithWater(landAndSeaInput[1]);
+    }
+
+    public void stats(String[][] landAndSeaInput){
+        int lands = landAndSeaInput[0].length;
+        int waters = landAndSeaInput[1].length;
+        System.out.println("--".repeat(10)); // -----------------
+        System.out.println(Arrays.toString(getBounds()));;
+        System.out.println("LandParts: "+lands+" WaterParts: "+waters); // -----------------
+        System.out.println((map.length* map[0].length)); // -----------------
+        System.out.println((map.length* map[0].length) == (lands+waters));
+        System.out.println("--".repeat(10)); // ---------------
     }
 
     /**
@@ -83,12 +94,14 @@ public class Earth
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
                 if (map[i][j] == null) {
-                    map[i][j] = new Sea(seaCurrent[k]);
+                    String curr = seaCurrent[k];
+                    map[i][j] = new Sea(curr);
                     map[i][j].setCoordinate(i,j);
                     k++;
                 }
             }
         }
+        runMapStitching();
     }
 
     /**
@@ -125,7 +138,6 @@ public class Earth
             for (Tile section : tiles) {
                 Tile tile = section;
                 Bottle bottle = new Bottle("Temp","This is a dfs bottle", tile);
-                tile.acceptBottle(bottle);
                 while (true) {
                     bottle.setCurrPosition(tile);
 
@@ -134,7 +146,6 @@ public class Earth
                     if (tile.hasNextPosition()) break;
                     tile = tile.getNextPosition();
 
-                    tile.acceptBottle(bottle);
                 }
                 System.out.println();
             }
@@ -151,7 +162,7 @@ public class Earth
         StringBuilder grid = new StringBuilder();
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
-                grid.append(map[i][j].toString());
+                grid.append(map[i][j].toString()+" ");
             }
             if (i != map.length-1)
                 grid.append("\n");

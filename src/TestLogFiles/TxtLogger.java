@@ -48,7 +48,7 @@ public class TxtLogger extends AbstractLogger{
         File fileName = new File(
             //  Creates a file using default or specified file path
             super.useDefaultPath
-            ?   "./src/MyMTeest/"+ super.fileName +".txt"
+            ?   "./src/TestLogFiles/"+ super.fileName +".txt"
             :   super.fileName
         );
 

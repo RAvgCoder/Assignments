@@ -34,7 +34,7 @@ public class Bottle
         this.currPosition= currPosition;
         int size = visitedTile.size();
         visitedTile.add(currPosition);
-        isStuck = size == visitedTile.size();
+        isStuck = (size == visitedTile.size());
     }
 
     public boolean isStuck(){return isStuck;}
@@ -63,11 +63,6 @@ public class Bottle
         );
         // Passes the bottle to the next part of the sea
         setCurrPosition(currPosition.getNextPosition());
-        ((Sea)currPosition).removeBottle();
-        currPosition.getNextPosition()
-                .acceptBottle(
-                        this
-                );
         incrementCounter();
         return true;
     }
@@ -78,13 +73,18 @@ public class Bottle
      */
     private boolean ifBottleCanTravel()
     {
-        if (currPosition.hasNextPosition()) {
+        if (currPosition.hasNextPosition() || isStuck) {
             // If the current position is a land it shouldn't be able to travel
-            if (currPosition.getType().equals("Sea")) {
-                ((Sea) currPosition).sinkBottle();
-            } else { // or if stuck at sea would sink
-                ((Land) currPosition).receiveMessage();
+            if (currPosition instanceof Sea){
+                ((Sea) currPosition).sinkBottle(this);
+            }else {
+                ((Land) currPosition).receiveMessage(this);
             }
+//            if (currPosition.getType().equals("Sea")) {
+//                ((Sea) currPosition).sinkBottle(this);
+//            } else { // or if stuck at sea would sink
+//                ((Land) currPosition).receiveMessage(this);
+//            }
             return false;
         }
         return true;
