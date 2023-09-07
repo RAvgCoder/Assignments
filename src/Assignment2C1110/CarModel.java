@@ -9,4 +9,4 @@ package Assignment2C1110;
  * @description: Creates a car model with its properties. This is ca then be used
  * to create a car.
  */
-public  record CarModel(String modelName, double fuelEconomy, double tankCapacity) {}
+public record CarModel(String modelName, double fuelEconomy, double tankCapacity) {}

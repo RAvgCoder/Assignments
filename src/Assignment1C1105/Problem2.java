@@ -9,10 +9,10 @@ import java.util.Scanner;
 public class Problem2 {
     public static void main(String[] args){
         Scanner kb = new Scanner(System.in);
+        System.out.println(127%5);
 
         // This section of the code is used to collect user input
         String lastName =  kb.next();
-
         String firstName =  kb.next();
 
         String fullName = firstName + " " + lastName; //Stores the name used to output user name

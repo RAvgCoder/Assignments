@@ -24,8 +24,6 @@ public class Problem1 {
         System.out.printf("Item Cost:%.2f", itemCost);
         System.out.println("");
         System.out.printf("Cash Amount:%.2f", amountPayed );
-
-
-
     }
+
 }

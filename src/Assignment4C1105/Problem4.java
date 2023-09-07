@@ -13,8 +13,8 @@ package Assignment4C1105;/*
 
 import java.util.Scanner;
 
-public class Problem4{
-    public static void main(String[] args){
+public class Problem4 {
+    public static void main(String[] args) {
 
         Scanner kb = new Scanner(System.in);
 
@@ -29,15 +29,15 @@ public class Problem4{
         int play1Count = 0;
         int play2Count = 0;
         int j;  // From a for loop [needs to be a Global Variables as its no visible to the outer forloop]
-        int gridFlip =0; //Initializes a transpose of the 3x3  grid
+        int gridFlip = 0; //Initializes a transpose of the 3x3  grid
         int playerCounter = -1; // Counts amount of time
         String playerScore; //Stores players scores
 
         // Handler to ensure it doesnt loop at sentinal value
-        while ( !(playerInput.equals("Player1 -1")) && !(playerInput.equals("Player2 -1")) ){
+        while (!(playerInput.equals("Player1 -1")) && !(playerInput.equals("Player2 -1"))) {
 
             // Handler to ensure it doesnt print at sentinal value
-            if ( !(playerInput.equals("Player1 -1")) && !(playerInput.equals("Player2 -1")) ) {
+            if (!(playerInput.equals("Player1 -1")) && !(playerInput.equals("Player2 -1"))) {
                 playerInput = kb.nextLine(); //Recieves user input Eg: Player1 1 or Player2 1
                 playerCounter++;
             }
@@ -45,7 +45,7 @@ public class Problem4{
             last = playerInput.charAt(playerInput.length() - 1);  // extract players Index
 
             // Handler to sentinal value doesnt perform any operation on the grid
-            if ( !(playerInput.equals("Player1 -1")) && !(playerInput.equals("Player2 -1")) ) {
+            if (!(playerInput.equals("Player1 -1")) && !(playerInput.equals("Player2 -1"))) {
                 String playerName = playerInput.substring(0, 7);  // extract player name
                 int playerValue = Character.getNumericValue(last); //Convert the last value to an int
 
@@ -68,19 +68,19 @@ public class Problem4{
         }
 
         // Prints out the final grid
-        for (int i = 0; i < 3; i++){
-            for (j= 0; j < 3; j++){
-                System.out.print( grid[i][j]+ " ");
+        for (int i = 0; i < 3; i++) {
+            for (j = 0; j < 3; j++) {
+                System.out.print(grid[i][j] + " ");
             }
             System.out.println();
         }
 
         //Checking the grid Horizontally and Vertically
-        for (int i = 0; i < 3; i++){
-            for (j= 0; j < 3; j++){
+        for (int i = 0; i < 3; i++) {
+            for (j = 0; j < 3; j++) {
 
                 //Horizontal check
-                if (play1Count !=3 && play2Count!=3 && !(gridFlip == 1)) {
+                if (play1Count != 3 && play2Count != 3 && !(gridFlip == 1)) {
                     // Counts how many times the players name shows up
                     if (grid[i][j] == 1) {
                         play1Count++;
@@ -90,7 +90,7 @@ public class Problem4{
                 }
 
                 //Vertical check (Done by taking the transpose of the grid)
-                if (play1Count !=3 && play2Count!=3 && (gridFlip == 1)) {
+                if (play1Count != 3 && play2Count != 3 && (gridFlip == 1)) {
                     // Counts how many times the players name shows up
                     if (grid[j][i] == 1) {
                         play1Count++;
@@ -101,15 +101,15 @@ public class Problem4{
             }
 
             //Resets the player count if no one won in that row / coln
-            if (play1Count !=3 && play2Count!=3) {
+            if (play1Count != 3 && play2Count != 3) {
                 play1Count = 0;
                 play2Count = 0;
             }
 
             // Initializer for the grid flip
-            if (i ==2 && j ==3 && (gridFlip < 1)){
-                i =-1;
-                j =0;
+            if (i == 2 && j == 3 && (gridFlip < 1)) {
+                i = -1;
+                j = 0;
                 gridFlip++; //Creaates a transpose of the 3x3  grid
             }
         }
@@ -118,9 +118,9 @@ public class Problem4{
         int player1Diagonal = 0;  //    Players 1 count if won diagonally
         int player2Diagonal = 0;  //  Players 2 count if won diagonally
 
-        if ((grid[0][0] == grid[1][1])){
-            if(grid[1][1]== grid[2][2]){
-                if(grid[1][1] == 1){
+        if ((grid[0][0] == grid[1][1])) {
+            if (grid[1][1] == grid[2][2]) {
+                if (grid[1][1] == 1) {
                     player1Diagonal++;
                 } else if (grid[1][1] == 2) {
                     player2Diagonal++;
@@ -129,7 +129,7 @@ public class Problem4{
         }
 
         //  Start Checking Diagonally From Right
-        if(player1Diagonal != 1 && player2Diagonal != 1){
+        if (player1Diagonal != 1 && player2Diagonal != 1) {
             if ((grid[0][2] == grid[1][1])) {
                 if (grid[1][1] == grid[2][0]) {
                     if (grid[2][0] == 1) {
@@ -142,28 +142,28 @@ public class Problem4{
         }
 
         // Creates a scrore for the player
-        if(playerCounter <= 5){
+        if (playerCounter <= 5) {
             playerScore = "300 points";
-        }else if(playerCounter > 5 && playerCounter <= 7){
+        } else if (playerCounter > 5 && playerCounter <= 7) {
             playerScore = "200 points";
-        }else{
+        } else {
             playerScore = "100 points";
         }
 
         // Print out for who won the game + scores
-        if (play1Count == 3){
+        if (play1Count == 3) {
             System.out.println("Game Over - Player 1 Wins");
             System.out.println(playerScore);
-        }else if (play2Count == 3){
+        } else if (play2Count == 3) {
             System.out.println("Game Over - Player 2 Wins");
             System.out.println(playerScore);
-        }else if (player1Diagonal > 0 ){
+        } else if (player1Diagonal > 0) {
             System.out.println("Game Over - Player 1 Wins");
             System.out.println(playerScore);
-        }else if (player2Diagonal > 0 ){
+        } else if (player2Diagonal > 0) {
             System.out.println("Game Over - Player 2 Wins");
             System.out.println(playerScore);
-        }else{
+        } else {
             System.out.println("Game Over - Draw");
         }
     }

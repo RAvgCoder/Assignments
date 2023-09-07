@@ -13,6 +13,8 @@ public class LinkedListM<T> {
         public Node prev = null;
     }
 
+    public LinkedListM(){}
+
     public LinkedListM(T data)
     {
         addFirst(data);
@@ -105,6 +107,17 @@ public class LinkedListM<T> {
             curr = curr.next;
         }
         return finals.toString();
+    }
+
+    public void printRecursively()
+    {
+        printRecursivelyHelper(head);
+    }
+
+    private void printRecursivelyHelper(Node currNode) {
+        if (currNode == null) return;
+        System.out.println(currNode.data);
+        printRecursivelyHelper(currNode.next);
     }
 
 }

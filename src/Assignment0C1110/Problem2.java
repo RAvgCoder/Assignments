@@ -32,7 +32,6 @@ public class Problem2 {
 
         System.out.printf("%s Cauliflower Wings cost $%.2f/$%.2f/$%.2f",fetch,Double.parseDouble(prop[0])*increase,Double.parseDouble(prop[1])*increase,Double.parseDouble(prop[2])*increase);
 
-//        System.out.println(menu);
     }
 
 }

@@ -22,9 +22,6 @@ public class JavaTemplateCreator
                         """
         );
 
-        try(Scanner in = new Scanner(System.in)){
-
-        }
 
         // Collects user input to create templates
         Scanner input = new Scanner(System.in);
@@ -38,7 +35,7 @@ public class JavaTemplateCreator
             System.out.println("Are you happy with your choice {Y/N}");
         }while (input.nextLine().toUpperCase().charAt(0) == 'N');
 
-        while (templatesWanted.size() != 0){
+        while (!templatesWanted.isEmpty()){
             switch (templatesWanted.remove()) {
 //                case "Abstract" -> createAbstractTemp();
                 case "Normal" -> createNormalTemp(input);
@@ -64,8 +61,8 @@ public class JavaTemplateCreator
         while (!method.isEmpty())
             __method.append(method.remove()).append("\n");
 
-        StringBuilder __finalWrite =  new StringBuilder();
-        __finalWrite.append(String.format(
+        StringBuilder __mainClass =  new StringBuilder();
+        __mainClass.append(String.format(
                 """
                 public class %s {
                     %s
@@ -77,13 +74,21 @@ public class JavaTemplateCreator
                 """,
                 fileName, __instVar, __method
         ));
-        writeToFile(fileName,__finalWrite);
+        writeToFile(fileName,new LinkedList<>(List.of(
+                __mainClass
+        )));
     }
 
-    private static void writeToFile(String fileName, StringBuilder finalWrite) {
+    /**
+     * Writes
+     * @param fileName
+     * @param writeQueue
+     */
+    private static void writeToFile(String fileName, Queue<StringBuilder> writeQueue) {
         File file = new File(String.format(".\\src\\Practice\\%s.java",fileName));
         try (FileWriter fileWriter = new FileWriter(file, false)) {
-            fileWriter.append(finalWrite);
+            while (!writeQueue.isEmpty())
+                fileWriter.append(writeQueue.remove());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

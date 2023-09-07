@@ -79,7 +79,7 @@ public class Problem2 {
       //Checks if worked overtime +ve[Yes] -ve[No]
       overTimePay = record.get("T") - record.get("t");
 
-      //Gets noraml work time
+      //Gets normal work time
       if (overTimePay > 0)
         tempY = record.get("T") - overTimePay;
       else

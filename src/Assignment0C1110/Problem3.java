@@ -22,7 +22,7 @@ public class Problem3 {
         int inputCount = Integer.parseInt(kb.nextLine()); //Amount of menus entered
 
         for (int i = 0; i < inputCount; i++) { //Collect menus items
-            createMenu( kb, menus);
+            createMenu(kb, menus);
         }
 
         while (kb.hasNext()){ //Collects users orders
@@ -75,13 +75,10 @@ public class Problem3 {
             //Income calculation;
             double tempS = Integer.parseInt(menuArr[1]);
             String[] tempA = menus.get(menuArr[2]);
-            switch (String.valueOf(tempS)){
-                case "6.0":    tempS = Double.parseDouble(tempA[1]);
-                break;
-                case "12.0":   tempS =  Double.parseDouble(tempA[2]);
-                break;
-                case "18.0":   tempS = Double.parseDouble(tempA[3]);
-                break;
+            switch (String.valueOf(tempS)) {
+                case "6.0" -> tempS = Double.parseDouble(tempA[1]);
+                case "12.0" -> tempS = Double.parseDouble(tempA[2]);
+                case "18.0" -> tempS = Double.parseDouble(tempA[3]);
             }
             //Calculates price for the order
             tempS *= Integer.parseInt(menuArr[0]);
