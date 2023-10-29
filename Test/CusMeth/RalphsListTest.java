@@ -202,4 +202,12 @@ public class RalphsListTest {
         System.out.println(vars);
 
     }
+
+    @Test
+    public void isNull(){
+        ArrayList<String> arrayList = null;
+        ArrayList<String> arrayList2 = new ArrayList<>();
+        Assert.assertNull(arrayList);
+        Assert.assertNotNull(arrayList2);
+    }
 }
