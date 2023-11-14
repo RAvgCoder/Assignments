@@ -2,7 +2,6 @@ package Assignment3C2110;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class NHLStats {
@@ -19,10 +18,10 @@ public class NHLStats {
     /**
      * Retrieves player with the most points
      */
-    public void playerWithMostPoints() {
-        bestPlayersInGivenCategory(
+    public String playerWithMostPoints() {
+        return bestPlayersInGivenCategory(
                 playerRecord -> playerRecord.getGoalsScored() + playerRecord.getAssists(),
-                playerRecord -> System.out.printf(
+                playerRecord -> String.format(
                         "Name: %s, Team: %s\n",
                         playerRecord.getName(), playerRecord.getTeamName()
                 )
@@ -32,10 +31,10 @@ public class NHLStats {
     /**
      * Retrieves the most aggressive player
      */
-    public void mostAggressivePlayer() {
-        bestPlayersInGivenCategory(
+    public String mostAggressivePlayer() {
+        return bestPlayersInGivenCategory(
                 PlayerRecord::getPenaltiesInMinutes,
-                playerRecord -> System.out.printf(
+                playerRecord -> String.format(
                         "Name: %s, Team: %s, Position %s\n",
                         playerRecord.getName(), playerRecord.getTeamName(), playerRecord.getPosition()
                 )
@@ -45,10 +44,10 @@ public class NHLStats {
     /**
      * Gets the MVP for the game
      */
-    public void getMVP() {
-        bestPlayersInGivenCategory(
+    public String getMVP() {
+        return bestPlayersInGivenCategory(
                 PlayerRecord::getGameWins,
-                playerRecord -> System.out.printf(
+                playerRecord -> String.format(
                         "Name: %s, Team: %s\n",
                         playerRecord.getName(), playerRecord.getTeamName()
                 )
@@ -58,10 +57,10 @@ public class NHLStats {
     /**
      * Gets the most promising player in the game
      */
-    public void mostPromisingPlayer() {
-        bestPlayersInGivenCategory(
+    public String mostPromisingPlayer() {
+        return bestPlayersInGivenCategory(
                 PlayerRecord::getShotsOnGoal,
-                playerRecord -> System.out.printf(
+                playerRecord -> String.format(
                         "Name: %s, Team: %s\n",
                         playerRecord.getName(), playerRecord.getTeamName()
                 )
@@ -71,10 +70,10 @@ public class NHLStats {
     /**
      * Gets players with the highest penalty minutes
      */
-    public void mostPenaltyMinutes() {
-        bestTeamsInGivenCategory(
+    public String mostPenaltyMinutes() {
+        return bestTeamsInGivenCategory(
                 PlayerRecord::getPenaltiesInMinutes,
-                teamNameAndCount -> System.out.printf(
+                teamNameAndCount -> String.format(
                         "Team: %s\n",
                         teamNameAndCount.getKey()
                 )
@@ -84,10 +83,10 @@ public class NHLStats {
     /**
      * Gets player with most game wins
      */
-    public void mostGameWins() {
-        bestTeamsInGivenCategory(
+    public String mostGameWins() {
+        return bestTeamsInGivenCategory(
                 PlayerRecord::getGameWins,
-                teamNameAndCount -> System.out.printf(
+                teamNameAndCount -> String.format(
                         "Team: %s\n",
                         teamNameAndCount.getKey()
                 )
@@ -96,31 +95,34 @@ public class NHLStats {
 
     /**
      * Finds the best players for a given category using a `category` of your choosing
+     *
      * @param category The category you want to check for
-     * @param output What to output when found
+     * @param output   What to output when found
      */
-    private void bestPlayersInGivenCategory(Function<PlayerRecord, Integer> category,
-                                            Consumer<PlayerRecord> output) {
-        //
+    private String bestPlayersInGivenCategory(Function<PlayerRecord, Integer> category,
+                                              Function<PlayerRecord, String> output) {
         int max = -1;
         for (PlayerRecord playerRecord : playerRecordList) {
             max = Math.max(max, category.apply(playerRecord));
         }
 
+        StringBuilder stringBuilder = new StringBuilder();
         for (PlayerRecord playerRecord : playerRecordList) {
             if (max == category.apply(playerRecord))
-                output.accept(playerRecord);
+                stringBuilder.append(output.apply(playerRecord));
         }
+        return stringBuilder.toString();
     }
 
     /**
-     * Calculates the best team for given categories using the `category` and then 
+     * Calculates the best team for given categories using the `category` and then
      * outputs to the console given from the `output` variable
+     *
      * @param category The requirements to match for the team
-     * @param output What to output to the screen for those who match the requirement
+     * @param output   What to output to the screen for those who match the requirement
      */
-    private void bestTeamsInGivenCategory(Function<PlayerRecord, Integer> category,
-                                          Consumer<Map.Entry<String, Integer>> output) {
+    private String bestTeamsInGivenCategory(Function<PlayerRecord, Integer> category,
+                                            Function<Map.Entry<String, Integer>, String> output) {
         // Prepare the stats table for each team based on the category given
         HashMap<String, Integer> teamStatsTable = new HashMap<>();
         for (PlayerRecord playerRecord : playerRecordList) {
@@ -133,16 +135,18 @@ public class NHLStats {
                 );
             } else teamStatsTable.put(name, stats);
         }
-        
+
         // Find the team with the highest stats
         int maxStats = -1;
         for (Integer teamPenalties : teamStatsTable.values()) {
             maxStats = Math.max(maxStats, teamPenalties);
         }
+        StringBuilder stringBuilder = new StringBuilder();
         for (Map.Entry<String, Integer> teams : teamStatsTable.entrySet()) {
             if (teams.getValue() == maxStats)
-                output.accept(teams);
+                stringBuilder.append(output.apply(teams));
         }
+        return stringBuilder.toString();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package Assignment3C2110;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -41,32 +42,40 @@ public class NHLListDemo {
                 ));
             }
         }
+        scanner.close();
 
-        System.out.println("\nNHL Results Summary");
-        System.out.println("Players with highest points and their teams:");
-        nhlStats.playerWithMostPoints();
-        System.out.println();
+        FileWriter fileWriter;
+        try {
+            fileWriter = new FileWriter("nhlstatsoutput.txt", true);
 
-        System.out.println("Most aggressive players, their teams and their positions:");
-        nhlStats.mostAggressivePlayer();
-        System.out.println();
+            fileWriter.append("NHL Results Summary\n");
+            fileWriter.append("Players with highest points and their teams:\n");
+            fileWriter.append(nhlStats.playerWithMostPoints());
+            fileWriter.append("\n");
 
-        System.out.println("Most valuable players and their teams:");
-        nhlStats.getMVP();
-        System.out.println();
+            fileWriter.append("Most aggressive players, their teams and their positions:\n");
+            fileWriter.append(nhlStats.mostAggressivePlayer());
+            fileWriter.append("\n");
 
-        System.out.println("Most promising players and their teams:");
-        nhlStats.mostPromisingPlayer();
-        System.out.println();
+            fileWriter.append("Most valuable players and their teams:\n");
+            fileWriter.append(nhlStats.getMVP());
+            fileWriter.append("\n");
 
-        System.out.println("Teams that had the most number of penalty minutes:");
-        nhlStats.mostPenaltyMinutes();
-        System.out.println();
+            fileWriter.append("Most promising players and their teams:\n");
+            fileWriter.append(nhlStats.mostPromisingPlayer());
+            fileWriter.append("\n");
 
-        System.out.println("Teams that had the most number of game winning goals:");
-        nhlStats.mostGameWins();
-        System.out.println();
+            fileWriter.append("Teams that had the most number of penalty minutes:\n");
+            fileWriter.append(nhlStats.mostPenaltyMinutes());
+            fileWriter.append("\n");
 
-        System.out.println(nhlStats.toString());
+            fileWriter.append("Teams that had the most number of game winning goals:\n");
+            fileWriter.append(nhlStats.mostGameWins());
+            fileWriter.append("\n");
+
+            fileWriter.close();
+        } catch (Exception e) {
+            System.out.println("Cant find file");
+        }
     }
 }
