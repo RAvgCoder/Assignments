@@ -19,116 +19,95 @@ enum MovementOffset {
     }
 }
 
-public class Puzzle {
-    static final MovementOffset[] movementOffset = new MovementOffset[]{
-            MovementOffset.UP, MovementOffset.LEFT,
-            MovementOffset.DOWN, MovementOffset.RIGHT
-    };
-    final static int PUZZLE_SIZE = 3;
-    static HashSet<Puzzle> visited_states = new HashSet<>();
-    static boolean PRINT = false;
-    int hash_code;
+// Holds 2 objects at once
+record Pair<F, S>(F index, S puzzle) {
+}
 
-    String TO_STRING;
-    int[][] grid;
-    int[] zero_cord;
-    int stack_depth;
+public class Puzzle {
+    final static int PUZZLE_SIZE = 3;
+    // Normal
+    private final int[][] grid;
+    private final int[] zero_cord; // Loc of zero
+    // ----------- Instance var ----------- \\
+    // Caching purposes
+    private final int hash_code;
+    private final String TO_STRING;
+    private int num_of_moves_taken; // num of moves taken to reach this state
+    // ----------- Instance var END ----------- \\
 
     Puzzle(int[][] grid, int[] zero_cord) {
         this.grid = grid;
         this.zero_cord = zero_cord;
-        this.stack_depth = 0;
+        this.num_of_moves_taken = 0;
+        this.TO_STRING = Arrays.toString(zero_cord) +
+                "\n" +
+                Arrays.toString(grid[0]) +
+                "\n" +
+                Arrays.toString(grid[1]) +
+                "\n" +
+                Arrays.toString(grid[2]) +
+                "\n";
+
+        this.hash_code = TO_STRING.hashCode();
     }
 
     public static void main(String[] args) {
         ArrayList<Puzzle> puzzles = read_from_file();
 
-        StringBuilder result = new StringBuilder(999999999);
-
         System.out.println("Puzzle_Size :" + puzzles.size());
 
         long startTime = System.currentTimeMillis();
 
-        int i = 0;
+        // Original Configuration
+        Puzzle origin = new Puzzle(
+                new int[][]{
+                        {1, 2, 3},
+                        {4, 5, 6},
+                        {7, 8, 0},
+                },
+                new int[]{2, 2}
+        );
+
+        HashMap<Puzzle, Integer> reachable_states = generate_reachable_states(origin);
+
         for (Puzzle p : puzzles) {
-            i++;
-            Puzzle origin = new Puzzle(
-                    new int[][]{
-                            {1, 2, 3},
-                            {4, 5, 6},
-                            {7, 8, 0},
-                    },
-                    new int[]{2, 2}
-            );
-
-            origin.generate_to_string();
-            p.generate_to_string();
-
-            int reachability = check_reachability(origin, p);
-
-            result.append(i)
-                    .append(") RESULT: ")
-                    .append((reachability == -1) ? "unreachable" : reachability)
-                    .append(", ")
-                    .append("\n");
-
-//            System.out.println(i+") RESULT: "+((reachability == -1) ? "unreachable" : reachability) + ", ");
-            visited_states = new HashSet<>();
+            Integer count = reachable_states.get(p);
+            System.out.println("RESULT: " + ((count == null) ? "unreachable" : count) + ",");
         }
 
         long endTime = System.currentTimeMillis();
         long elapsedTime = endTime - startTime;
 
-        System.out.println(result);
         System.out.println("Elapsed time sec:" + elapsedTime / 1000.0);
     }
 
-    private static int check_reachability(Puzzle origin, final Puzzle result) {
-        final Queue<Puzzle> states = new LinkedList<>(List.of(origin));
+    private static HashMap<Puzzle, Integer> generate_reachable_states(Puzzle origin) {
+        final Queue<Puzzle> states_queue = new LinkedList<>(List.of(origin));
+        final HashMap<Puzzle, Integer> visited_states = new HashMap<>();
+        final MovementOffset[] movement_offset = new MovementOffset[]{
+                MovementOffset.UP, MovementOffset.LEFT,
+                MovementOffset.DOWN, MovementOffset.RIGHT
+        };
 
-        while (!states.isEmpty()) {
-            Puzzle curr = states.remove();
+        while (!states_queue.isEmpty()) {
+            Puzzle curr = states_queue.remove();
 
-            if (PRINT) {
-                System.out.println("------------ Curr Depth:" + curr.stack_depth + " ------------");
-                System.out.println(curr);
-                System.out.println("------------------------------\n\n");
-            }
-
-            if (curr.equals(result)) {
-                return curr.stack_depth;
-            } else if (visited_states.contains(curr)) {
+            // Check for repetitions to old states
+            if (visited_states.containsKey(curr)) {
                 continue;
-            } else visited_states.add(curr);
+            } else visited_states.put(curr, curr.num_of_moves_taken);
 
-            int i = 0;
-            for (MovementOffset m_offset : movementOffset) {
-                i++;
-                int[] new_zero_pos = curr.can_move(m_offset);
-
-                if (new_zero_pos != null) {
-                    Puzzle copy = copy(curr, new_zero_pos);
-
-                    // Swap pos
-                    copy.grid[curr.zero_cord[0]][curr.zero_cord[1]] =
-                            copy.grid[new_zero_pos[0]][new_zero_pos[1]];
-                    copy.grid[new_zero_pos[0]][new_zero_pos[1]] = 0;
-
-                    copy.generate_to_string();
-
-                    if (PRINT) {
-                        System.out.println("------------ Curr " + i + " Depth:" + copy.stack_depth + "------------");
-                        System.out.println(copy);
-                        System.out.println("------------------------------\n\n");
-                    }
-
-                    states.add(copy);
-                }
-
+            // Move to all 4 possible states
+            for (MovementOffset m_offset : movement_offset) {
+                // If an offset is possible - not out of bounds, then create one
+                curr.can_move(m_offset)
+                        .ifPresent(new_zero_pos -> {
+                            states_queue.add(copy(curr, new_zero_pos));
+                        });
             }
         }
 
-        return -1;
+        return visited_states;
     }
 
     private static ArrayList<Puzzle> read_from_file() {
@@ -139,6 +118,7 @@ public class Puzzle {
             int[][] grid = new int[PUZZLE_SIZE][PUZZLE_SIZE];
             int[] zero_cord = new int[2];
 
+            int count = 0;
             while (scanner.hasNextLine()) {
                 for (int i = 0; i < PUZZLE_SIZE; i++) {
                     int[] line = Arrays.stream(scanner.nextLine().split(" "))
@@ -154,6 +134,8 @@ public class Puzzle {
 
                 puzzles.add(new Puzzle(grid, zero_cord));
 
+                count++;
+
                 // Read blank line
                 scanner.nextLine();
                 grid = new int[PUZZLE_SIZE][PUZZLE_SIZE];
@@ -166,32 +148,32 @@ public class Puzzle {
         return puzzles;
     }
 
-    private static Puzzle copy(Puzzle puzzle, int[] new_zero) {
+    private static Puzzle copy(Puzzle curr, int[] new_zero_pos) {
         int[][] copy_grid = new int[][]{
-                puzzle.grid[0].clone(),
-                puzzle.grid[1].clone(),
-                puzzle.grid[2].clone(),
+                curr.grid[0].clone(),
+                curr.grid[1].clone(),
+                curr.grid[2].clone(),
         };
 
-        Puzzle p = new Puzzle(copy_grid, new_zero);
-        p.stack_depth = puzzle.stack_depth + 1;
+        // Swap zero positions
+        copy_grid[curr.zero_cord[0]][curr.zero_cord[1]] =
+                copy_grid[new_zero_pos[0]][new_zero_pos[1]];
+        copy_grid[new_zero_pos[0]][new_zero_pos[1]] = 0;
+
+
+        Puzzle p = new Puzzle(copy_grid, new_zero_pos);
+        p.num_of_moves_taken = curr.num_of_moves_taken + 1;
         return p;
     }
 
-    private void generate_to_string() {
-        TO_STRING = Arrays.toString(zero_cord) +
-                "\n" +
-                Arrays.toString(grid[0]) +
-                "\n" +
-                Arrays.toString(grid[1]) +
-                "\n" +
-                Arrays.toString(grid[2]) +
-                "\n";
 
-        hash_code = TO_STRING.hashCode();
-    }
-
-    private int[] can_move(MovementOffset movementOffset) {
+    /**
+     * Checks if the puzzle can move the zero_cord to a given offset
+     *
+     * @param movementOffset Offset given
+     * @return New offset if one exists
+     */
+    private Optional<int[]> can_move(MovementOffset movementOffset) {
         int[] offset = {
                 zero_cord[0] + movementOffset.X,
                 zero_cord[1] + movementOffset.Y
@@ -201,18 +183,13 @@ public class Puzzle {
         if (offset[0] < 0 || offset[0] > 2  // x
                 || offset[1] < 0 || offset[1] > 2) // y
         {
-            return null;
-        }
-        return offset;
+            return Optional.empty();
+        } else return Optional.of(offset);
     }
 
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Puzzle other) {
-//            if (!Arrays.equals(grid[0], other.grid[0])) return false;
-//            else if (!Arrays.equals(grid[1], other.grid[1])) return false;
-//            else return (Arrays.equals(grid[2], other.grid[2]));
-
             return this.TO_STRING.equals(other.TO_STRING);
         }
         return false;
