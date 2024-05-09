@@ -19,10 +19,6 @@ enum MovementOffset {
     }
 }
 
-// Holds 2 objects at once
-record Pair<F, S>(F index, S puzzle) {
-}
-
 public class Puzzle {
     final static int PUZZLE_SIZE = 3;
     // Normal
@@ -35,7 +31,7 @@ public class Puzzle {
     private int num_of_moves_taken; // num of moves taken to reach this state
     // ----------- Instance var END ----------- \\
 
-    Puzzle(int[][] grid, int[] zero_cord) {
+    private Puzzle(int[][] grid, int[] zero_cord) {
         this.grid = grid;
         this.zero_cord = zero_cord;
         this.num_of_moves_taken = 0;
@@ -54,12 +50,8 @@ public class Puzzle {
     public static void main(String[] args) {
         ArrayList<Puzzle> puzzles = read_from_file();
 
-        System.out.println("Puzzle_Size :" + puzzles.size());
-
-        long startTime = System.currentTimeMillis();
-
         // Original Configuration
-        Puzzle origin = new Puzzle(
+        Puzzle original_configuration = new Puzzle(
                 new int[][]{
                         {1, 2, 3},
                         {4, 5, 6},
@@ -68,46 +60,44 @@ public class Puzzle {
                 new int[]{2, 2}
         );
 
-        HashMap<Puzzle, Integer> reachable_states = generate_reachable_states(origin);
+        HashMap<Puzzle, Integer> reachable_states =
+                generate_reachable_configurations(original_configuration);
 
         for (Puzzle p : puzzles) {
             Integer count = reachable_states.get(p);
-            System.out.println("RESULT: " + ((count == null) ? "unreachable" : count) + ",");
+            System.out.println(((count == null) ? "unreachable" : count));
         }
-
-        long endTime = System.currentTimeMillis();
-        long elapsedTime = endTime - startTime;
-
-        System.out.println("Elapsed time sec:" + elapsedTime / 1000.0);
     }
 
-    private static HashMap<Puzzle, Integer> generate_reachable_states(Puzzle origin) {
-        final Queue<Puzzle> states_queue = new LinkedList<>(List.of(origin));
-        final HashMap<Puzzle, Integer> visited_states = new HashMap<>();
+    private static HashMap<Puzzle, Integer> generate_reachable_configurations(Puzzle original_configuration) {
+        final Queue<Puzzle> configuration_queue = new LinkedList<>(List.of(original_configuration));
         final MovementOffset[] movement_offset = new MovementOffset[]{
                 MovementOffset.UP, MovementOffset.LEFT,
                 MovementOffset.DOWN, MovementOffset.RIGHT
         };
 
-        while (!states_queue.isEmpty()) {
-            Puzzle curr = states_queue.remove();
+        // Stores a configuration and num of steps taken to get there
+        final HashMap<Puzzle, Integer> visited_configurations = new HashMap<>();
 
-            // Check for repetitions to old states
-            if (visited_states.containsKey(curr)) {
+        while (!configuration_queue.isEmpty()) {
+            Puzzle curr = configuration_queue.remove();
+
+            // Check for repetitions to old configurations
+            if (visited_configurations.containsKey(curr)) {
                 continue;
-            } else visited_states.put(curr, curr.num_of_moves_taken);
+            } else visited_configurations.put(curr, curr.num_of_moves_taken);
 
-            // Move to all 4 possible states
+            // Move to all 4 possible offsets
             for (MovementOffset m_offset : movement_offset) {
                 // If an offset is possible - not out of bounds, then create one
                 curr.can_move(m_offset)
                         .ifPresent(new_zero_pos -> {
-                            states_queue.add(copy(curr, new_zero_pos));
+                            configuration_queue.add(copy(curr, new_zero_pos));
                         });
             }
         }
 
-        return visited_states;
+        return visited_configurations;
     }
 
     private static ArrayList<Puzzle> read_from_file() {
