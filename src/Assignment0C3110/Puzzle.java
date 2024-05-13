@@ -1,7 +1,7 @@
 package Assignment0C3110;
 
 
-import java.io.File;
+import java.io.*;
 import java.util.*;
 
 enum MovementOffset {
@@ -21,10 +21,11 @@ enum MovementOffset {
 
 public class Puzzle {
     final static int PUZZLE_SIZE = 3;
-    // Normal
-    private final int[][] grid;
-    private final int[] zero_cord; // Loc of zero
+
     // ----------- Instance var ----------- \\
+    // Normal
+    private final int[] zero_cord; // Loc of zero
+    private final int[][] grid;
     // Caching purposes
     private final int hash_code;
     private final String TO_STRING;
@@ -48,7 +49,7 @@ public class Puzzle {
     }
 
     public static void main(String[] args) {
-        ArrayList<Puzzle> puzzles = read_from_file();
+        ArrayList<Puzzle> puzzles = read_input(false);
 
         // Original Configuration
         Puzzle original_configuration = new Puzzle(
@@ -63,10 +64,7 @@ public class Puzzle {
         HashMap<Puzzle, Integer> reachable_states =
                 generate_reachable_configurations(original_configuration);
 
-        for (Puzzle p : puzzles) {
-            Integer count = reachable_states.get(p);
-            System.out.println(((count == null) ? "unreachable" : count));
-        }
+        write_to_file(puzzles, reachable_states);
     }
 
     private static HashMap<Puzzle, Integer> generate_reachable_configurations(Puzzle original_configuration) {
@@ -91,48 +89,73 @@ public class Puzzle {
             for (MovementOffset m_offset : movement_offset) {
                 // If an offset is possible - not out of bounds, then create one
                 curr.can_move(m_offset)
-                        .ifPresent(new_zero_pos -> {
-                            configuration_queue.add(copy(curr, new_zero_pos));
-                        });
+                        .ifPresent(new_zero_pos -> configuration_queue.add(copy(curr, new_zero_pos)));
             }
         }
 
         return visited_configurations;
     }
 
-    private static ArrayList<Puzzle> read_from_file() {
+
+    private static void write_to_file(ArrayList<Puzzle> puzzles, HashMap<Puzzle, Integer> reachable_states) {
+        String filename = "prog_output.txt";
+        try {
+            // Create a FileWriter with the specified file path
+            // Redirect System.out to the FileWriter
+            PrintWriter printWriter = new PrintWriter(new FileWriter(filename));
+
+            for (Puzzle p : puzzles) {
+                Integer count = reachable_states.get(p);
+                String output = String.valueOf((count == null) ? "unreachable" : count);
+                System.out.println(output);
+                printWriter.println(output);
+            }
+
+            // Close the writer
+            printWriter.close();
+        } catch (IOException e) {
+            System.err.println("Error" + e);
+        }
+    }
+
+    private static ArrayList<Puzzle> read_input(boolean read_from_file) {
         ArrayList<Puzzle> puzzles = new ArrayList<>();
 
-        try (Scanner scanner = new Scanner(new File("puzzles.txt"))) {
+        Scanner scanner;
 
-            int[][] grid = new int[PUZZLE_SIZE][PUZZLE_SIZE];
-            int[] zero_cord = new int[2];
-
-            int count = 0;
-            while (scanner.hasNextLine()) {
-                for (int i = 0; i < PUZZLE_SIZE; i++) {
-                    int[] line = Arrays.stream(scanner.nextLine().split(" "))
-                            .mapToInt(Integer::parseInt)
-                            .toArray();
-
-                    if (line[0] == 0) zero_cord = new int[]{i, 0};
-                    else if (line[1] == 0) zero_cord = new int[]{i, 1};
-                    else if (line[2] == 0) zero_cord = new int[]{i, 2};
-
-                    grid[i] = line;
-                }
-
-                puzzles.add(new Puzzle(grid, zero_cord));
-
-                count++;
-
-                // Read blank line
-                scanner.nextLine();
-                grid = new int[PUZZLE_SIZE][PUZZLE_SIZE];
+        if (read_from_file) {
+            try {
+                scanner = new Scanner(new File("puzzles.txt"));
+            } catch (FileNotFoundException e) {
+                System.out.println("Can not open file puzzles.txt");
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            System.out.print("Cannot open puzzles.txt");
-            e.printStackTrace();
+        } else {
+            scanner = new Scanner(System.in);
+        }
+
+        int[][] grid = new int[PUZZLE_SIZE][PUZZLE_SIZE];
+        int[] zero_cord = new int[2];
+
+        for (int j = 0; j < 1000; j++) {
+            for (int i = 0; i < PUZZLE_SIZE; i++) {
+                int[] line = Arrays.stream(scanner.nextLine().split(" "))
+                        .mapToInt(Integer::parseInt)
+                        .toArray();
+
+                // Find zero positions
+                if (line[0] == 0) zero_cord = new int[]{i, 0};
+                else if (line[1] == 0) zero_cord = new int[]{i, 1};
+                else if (line[2] == 0) zero_cord = new int[]{i, 2};
+
+                grid[i] = line;
+            }
+
+            puzzles.add(new Puzzle(grid, zero_cord));
+
+            // Read blank line
+            scanner.nextLine();
+            grid = new int[PUZZLE_SIZE][PUZZLE_SIZE];
         }
 
         return puzzles;
