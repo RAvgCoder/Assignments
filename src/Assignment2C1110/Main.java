@@ -120,7 +120,7 @@ public class Main {
     * Creates a car to be driven
     * @param cars List of all cars
     * @param carModels List of all car models
-    * @param input Input for creating a Car
+    * @param input Input for creating a Practice.Car
     */
   public static void createCar(List<Car> cars, List<CarModel> carModels, String[] input){
     carModels.stream()  //Searches through all car models, finds and creates a car with specs given

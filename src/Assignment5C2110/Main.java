@@ -3,39 +3,52 @@ package Assignment5C2110;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Read in probabilities for creating the tree
+        // Declare a Huffman object
         Huffman huffman;
-        try (Scanner input = new Scanner(
-                new File("LettersProbability.txt"))) {
+        String fileName;
+
+        // Input file name
+        Scanner input = new Scanner(System.in);
+        System.out.print("Huffman Coding\n" +
+                "Enter the name of the file with letters and probability: ");
+         fileName = input.next();
+
+        // Open the file "TopSort.txt"
+        try (Scanner fileReader = new Scanner(new File(fileName)))
+        {
+            // Create an ArrayList to store the nodes for the Huffman tree
             ArrayList<Pair> huffmanNodes = new ArrayList<>();
-            while (input.hasNextLine()) {
-                huffmanNodes.add(new Pair(input.next().charAt(0), input.nextDouble()));
+            // Read each line from the file
+            while (fileReader.hasNextLine()) {
+                // Add a new Pair object to the ArrayList for each line in the file
+                huffmanNodes.add(new Pair(fileReader.next().charAt(0), fileReader.nextDouble()));
             }
+            // Create a new Huffman tree using the nodes from the ArrayList
             huffman = new Huffman(huffmanNodes.toArray(Pair[]::new));
-            BinaryTree.inorder(huffman.getHuffmanTree());
-            System.out.println();
-            System.out.println(Arrays.toString(huffman.getEncodings()));
-            for (int i = 'A'; i <= 'Z'; i++) {
-                if (huffman.getEncodings()[i - 'A'] != null)
-                    System.out.printf("%c: %s\n",i,huffman.getEncodings()[i - 'A']);
-            }
         } catch (FileNotFoundException e) {
+            // If the file is not found, throw a RuntimeException
             throw new RuntimeException(e);
         }
 
-        System.out.println("StringBuilder message = new StringBuilder();\n" +
-                "        BinaryTree<Pair> currLevel = huffmanTree;".toUpperCase());
+        input = new Scanner(System.in);
         // Read in words for encoding
-        try(Scanner input = new Scanner(System.in)) {
-            String text;
-            System.out.println("Enter a line of text (uppercase letters only):");
-            text = input.nextLine();
-            System.out.println(huffman.decode(huffman.encode(text)));
-        }
+        String text;
+        // Print a header for the output
+        System.out.println("Huffman messages encoded and decoded".toUpperCase());
+        // Prompt the user to enter a line of text
+        System.out.print("Enter a line of text (uppercase letters only): ");
+        // Read the user's input
+        text = input.nextLine();
+        // Print the encoded line
+        System.out.print("Here’s the encoded line: ");
+        System.out.println(huffman.encode(text));
+        // Print the decoded line
+        System.out.print("The decoded line is: ");
+        System.out.println(huffman.decode(huffman.encode(text)));
+        input.close();
     }
 }

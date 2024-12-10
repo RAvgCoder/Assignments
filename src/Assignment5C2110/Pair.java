@@ -3,8 +3,7 @@ package Assignment5C2110;
 import java.text.DecimalFormat;
 
 public class Pair implements Comparable<Pair> {
-    // declare all
-//required fields
+
     private final char value;
     private final double prob;
 
@@ -13,17 +12,15 @@ public class Pair implements Comparable<Pair> {
         this.prob = prob;
     }
 
-    //constructor
-//getters
-//setters
-//toString
-/*
-The compareTo method overrides the compareTo method
-of the Comparable interface.
-*/
-    @Override
-    public int compareTo(Pair p) {
-        return Double.compare(this.getProb(), p.getProb());
+    /*
+    The compareTo method overrides the compareTo method
+    of the Comparable interface.
+    */
+    public double add(Pair data) {
+        if (data == null) return prob;
+        else return Double
+                    .parseDouble(new DecimalFormat("#.########")
+                            .format(prob + data.prob));
     }
 
     public double getProb() {
@@ -35,17 +32,15 @@ of the Comparable interface.
     }
 
     @Override
-    public String toString() {
-        return "Pair{" +
-                "value=" + value +
-                ", prob=" + prob +
-                '}';
+    public int compareTo(Pair p) {
+        return Double.compare(this.getProb(), p.getProb());
     }
 
-    public double add(Pair data) {
-        if (data == null) return prob;
-        else return Double
-                .parseDouble(new DecimalFormat("#.########")
-                        .format(prob + data.prob));
+    @Override
+    public String toString() {
+        return "Pair{ " +
+                "value=" + value +
+                ", prob=" + prob +
+                " }";
     }
 }

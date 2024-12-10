@@ -123,7 +123,7 @@ public class NHLStats {
      */
     private String bestTeamsInGivenCategory(Function<PlayerRecord, Integer> category,
                                             Function<Map.Entry<String, Integer>, String> output) {
-        // Prepare the stats table for each team based on the category given
+        // Prepare the zstat table for each team based on the category given
         HashMap<String, Integer> teamStatsTable = new HashMap<>();
         for (PlayerRecord playerRecord : playerRecordList) {
             String name = playerRecord.getTeamName();

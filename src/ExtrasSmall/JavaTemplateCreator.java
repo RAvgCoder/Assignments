@@ -102,7 +102,7 @@ public class JavaTemplateCreator
     private static void collectInput(Queue<String> templatesWanted, Scanner input)
     {
         String choices = input.nextLine();
-        while (!choices.equals("-1")) {
+        while (!choices.equals("exit")) {
             choices = validateClasses(choices)
                     .map(str -> { // If found a valid word
                         System.out.println(Arrays.toString(str.split(" ")));
